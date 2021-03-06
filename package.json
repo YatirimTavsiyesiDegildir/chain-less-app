@@ -1,5 +1,5 @@
 {
-  "name": "omuApp",
+  "name": "Bulusunca",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -7,38 +7,50 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint . --ext .js,.jsx"
+    "lint": "eslint ."
   },
   "dependencies": {
-    "@eva-design/eva": "2.0.0",
+    "@apollo/react-hooks": "^4.0.0",
+    "@eva-design/eva": "^2.0.0",
+    "@react-native-community/async-storage": "^1.11.0",
     "@react-native-community/masked-view": "^0.1.10",
-    "@react-native-firebase/app": "^8.4.5",
-    "@react-navigation/bottom-tabs": "^5.9.1",
-    "@react-navigation/native": "^5.7.5",
-    "@ui-kitten/components": "5.0.0",
-    "@ui-kitten/eva-icons": "5.0.0",
+    "@react-navigation/bottom-tabs": "^5.5.2",
+    "@react-navigation/native": "^5.5.1",
+    "@react-navigation/stack": "^5.5.1",
+    "@ui-kitten/components": "^5.0.0",
+    "@ui-kitten/eva-icons": "^5.0.0",
+    "apollo-boost": "^0.4.9",
+    "graphql": "^15.5.0",
     "react": "16.11.0",
     "react-native": "0.62.2",
-    "react-native-gesture-handler": "^1.8.0",
-    "react-native-reanimated": "^1.13.1",
-    "react-native-safe-area-context": "^3.1.8",
-    "react-native-screens": "^2.11.0",
+    "react-native-chart-kit": "^6.11.0",
+    "react-native-gesture-handler": "^1.6.1",
+    "react-native-image-crop-picker": "^0.32.0",
+    "react-native-qrcode-svg": "^6.0.6",
+    "react-native-reanimated": "^1.9.0",
+    "react-native-safe-area-context": "^3.0.5",
+    "react-native-screens": "^2.8.0",
     "react-native-svg": "^12.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
     "@babel/runtime": "^7.6.2",
-    "@react-native-community/eslint-config": "^1.0.0",
-    "@ui-kitten/metro-config": "5.0.0",
+    "@react-native-community/eslint-config": "^0.0.5",
+    "babel-eslint": "^10.1.0",
     "babel-jest": "^24.9.0",
-    "eslint": "^6.5.1",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.21.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.20.0",
+    "eslint-plugin-react-hooks": "^2.5.0",
+    "eslint-plugin-react-native": "^3.8.1",
     "jest": "^24.9.0",
     "metro-react-native-babel-preset": "^0.58.0",
-    "prettier": "^2.0.2",
     "react-test-renderer": "16.11.0"
   },
   "jest": {
-    "preset": "react-native",
-    "transformIgnorePatterns": []
+    "preset": "react-native"
   }
 }
