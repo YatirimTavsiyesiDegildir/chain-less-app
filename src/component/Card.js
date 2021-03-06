@@ -5,6 +5,9 @@ import {Button, Card, Text, Icon, Spinner} from '@ui-kitten/components';
 const Footer = props => (
   <View {...props} style={[props.style, CardStyles.footerContainer]}>
     <Button style={CardStyles.footerControl} size="small">
+      FOLLOW
+    </Button>
+    <Button style={CardStyles.footerControl} size="small">
       ACCEPT
     </Button>
   </View>
@@ -64,6 +67,13 @@ const CardStyles = StyleSheet.create({
   header: {
     margin: 10,
   },
+  footerContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
+  footerControl: {
+    marginHorizontal: 2,
+  },
   cardInnerContainer: {
     marginHorizontal: -24,
     marginVertical: -16,
@@ -96,13 +106,6 @@ const CardStyles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
-  footerContainer: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    padding: 10,
-  },
-  footerControl: {},
   amountText: {alignSelf: 'flex-end', flex: 1},
   nameText: {
     marginLeft: 20,
