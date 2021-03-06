@@ -17,7 +17,7 @@ import {
   TopNavigationAction,
   Text,
 } from '@ui-kitten/components';
-import CouponCard from '../../../Components/Card';
+import CouponCard from '../../../src/component/Card2';
 import {FetchGet} from '../../../Utils/Fetch';
 
 import {
@@ -31,9 +31,9 @@ import {
 import {
   SubscriptionWarningCard,
   FriendWarningCard,
-} from '../../../Components/Card';
+} from '../../../src/component/Card2';
 
-export default class CouponsScreen extends Component {
+export default class ReportsScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {visible: false, visible2: false, refreshing: false};

@@ -26,7 +26,7 @@ import {gql} from '@apollo/client';
 
 const AddFriendIcon = props => <Icon {...props} name="person-add-outline" />;
 
-export default class FriendsScreen extends Component {
+export default class FollowedReportsScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {

@@ -10,10 +10,10 @@ import {
   Icon,
   TopNavigationAction,
 } from '@ui-kitten/components';
-import {BankApiCard} from '../../../Components/Card';
+import {BankApiCard} from '../../../src/component/Card2';
 import {FetchGet} from '../../../Utils/Fetch';
 
-export default class AddBankAPI extends Component {
+export default class AddNewReport extends Component {
   constructor(props) {
     super(props);
     this.state = {

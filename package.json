@@ -1,5 +1,5 @@
 {
-  "name": "Bulusunca",
+  "name": "TrueReport",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -21,8 +21,8 @@
     "@ui-kitten/eva-icons": "^5.0.0",
     "apollo-boost": "^0.4.9",
     "graphql": "^15.5.0",
-    "react": "16.11.0",
-    "react-native": "0.62.2",
+    "react": "16.13.1",
+    "react-native": "0.63.4",
     "react-native-chart-kit": "^6.11.0",
     "react-native-gesture-handler": "^1.6.1",
     "react-native-image-crop-picker": "^0.32.0",
