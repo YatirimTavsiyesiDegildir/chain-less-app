@@ -2,11 +2,6 @@ import React, {Component} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
-  Dimensions,
-  ScrollView,
-  View,
-  TouchableOpacity,
-  RefreshControl,
 } from 'react-native';
 import {
   Divider,
@@ -15,30 +10,13 @@ import {
   List,
   Icon,
   TopNavigationAction,
-  Text,
 } from '@ui-kitten/components';
 import {ReportCard} from '../../../src/component/Card';
-import {FetchGet} from '../../../Utils/Fetch';
-
-import {
-  LineChart,
-  BarChart,
-  PieChart,
-  ProgressChart,
-  ContributionGraph,
-  StackedBarChart,
-} from 'react-native-chart-kit';
-import {
-  SubscriptionWarningCard,
-  FriendWarningCard,
-} from '../../../src/component/Card2';
 
 export default class CouponsScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      visible: false,
-      visible2: false,
       refreshing: false,
       reportsData: [
         {
