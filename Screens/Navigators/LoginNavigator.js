@@ -17,6 +17,7 @@ class HomeNavigator extends Component {
             mainFunctions: {
               logInUser: (email, password, callback) =>
                 this.props.mainFunctions.logInUser(email, password, callback),
+              logInUserAnon: () => this.props.mainFunctions.logInUserAnon(),
             },
           }}
         />
@@ -34,6 +35,7 @@ export default class LoginNavigator extends Component {
           mainFunctions={{
             logInUser: (email, password, callback) =>
               this.props.mainFunctions.logInUser(email, password, callback),
+            logInUserAnon: () => this.props.mainFunctions.logInUserAnon(),
           }}
         />
       </NavigationContainer>

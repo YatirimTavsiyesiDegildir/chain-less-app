@@ -115,6 +115,10 @@ export default class App extends Component {
     }
   }
 
+  logInUserAnon() {
+    this.setState({isLoggedIn: true});
+  }
+
   logInUserWithPassword(email, password, callback) {
     client
       .query({
@@ -178,6 +182,7 @@ export default class App extends Component {
               mainFunctions={{
                 logInUser: (email, password, callback) =>
                   this.logInUserWithPassword(email, password, callback),
+                logInUserAnon: () => this.logInUserAnon(),
               }}
             />
           )}

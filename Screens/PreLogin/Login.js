@@ -91,6 +91,12 @@ export default class LoginScreen extends Component {
                 appearance={this.state.loading ? 'ghost' : 'filled'}>
                 {this.state.loading ? '' : 'Giris Yap'}
               </Button>
+              <TouchableOpacity
+                onPress={() =>
+                  this.props.route.params.mainFunctions.logInUserAnon()
+                }>
+                <Text>Continue Anonymously</Text>
+              </TouchableOpacity>
               <TouchableOpacity onPress={this.navigateRegister}>
                 <Text>Hesabin yok mu? Kayit ol!</Text>
               </TouchableOpacity>
