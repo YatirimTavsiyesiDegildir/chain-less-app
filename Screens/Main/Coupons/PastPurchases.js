@@ -16,7 +16,7 @@ import {
   TopNavigationAction,
 } from '@ui-kitten/components';
 
-import {PurchaseCard} from '../../../Components/Card';
+import {PurchaseCard} from '../../../src/component/Card2';
 
 export default class PastPurchasesScreen extends Component {
   constructor(props) {

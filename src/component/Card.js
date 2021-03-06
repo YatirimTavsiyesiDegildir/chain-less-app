@@ -2,6 +2,14 @@ import React from 'react';
 import {StyleSheet, View, Image} from 'react-native';
 import {Button, Card, Text, Icon, Spinner} from '@ui-kitten/components';
 
+const Footer = props => (
+  <View {...props} style={[props.style, CardStyles.footerContainer]}>
+    <Button style={CardStyles.footerControl} size="small">
+      ACCEPT
+    </Button>
+  </View>
+);
+
 const FriendCard = props => (
   <Card style={CardStyles.card}>
     <View
@@ -32,12 +40,29 @@ const FriendCard = props => (
   </Card>
 );
 
+const ReportCard = props => (
+  <Card
+    style={CardStyles.card}
+    header={() => (
+      <View style={CardStyles.header}>
+        <Text category="h6">{props.data.name}</Text>
+        <Text category="s1">from {props.data.place}</Text>
+      </View>
+    )}
+    footer={Footer}>
+    <Text>{props.data.description}</Text>
+  </Card>
+);
+
 const CardStyles = StyleSheet.create({
   card: {
     flex: 1,
-    margin: 10,
+    margin: 5,
     borderRadius: 20,
     backgroundColor: 'white',
+  },
+  header: {
+    margin: 10,
   },
   cardInnerContainer: {
     marginHorizontal: -24,
@@ -94,4 +119,4 @@ const CardStyles = StyleSheet.create({
   },
 });
 
-export {FriendCard};
+export {FriendCard, ReportCard};
