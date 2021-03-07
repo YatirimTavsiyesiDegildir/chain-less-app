@@ -20,8 +20,8 @@ const Stack = createStackNavigator();
 
 // Bottom tab icons
 const PersonIcon = props => <Icon {...props} name="person" />;
-const PeopleIcon = props => <Icon {...props} name="people-outline" />;
-const CouponIcon = props => <Icon {...props} name="activity-outline" />;
+const StarIcon = props => <Icon {...props} name="star" />;
+const ShakeIcon = props => <Icon {...props} name="shake" />;
 
 const CouponsStack = props => (
   <Stack.Navigator headerMode="none">
@@ -58,8 +58,8 @@ const BottomTabBar = ({navigation, state}) => (
   <BottomNavigation
     selectedIndex={state.index}
     onSelect={index => navigation.navigate(state.routeNames[index])}>
-    <BottomNavigationTab icon={PeopleIcon} />
-    <BottomNavigationTab icon={CouponIcon} />
+    <BottomNavigationTab icon={StarIcon} />
+    <BottomNavigationTab icon={ShakeIcon} />
     <BottomNavigationTab icon={PersonIcon} />
   </BottomNavigation>
 );
