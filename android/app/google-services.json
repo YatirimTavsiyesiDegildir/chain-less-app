@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "902749090561",
+    "project_id": "truereport-db96f",
+    "storage_bucket": "truereport-db96f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:902749090561:android:342e8ad42b309c9b91a100",
+        "android_client_info": {
+          "package_name": "com.truereport"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "902749090561-6k9h8uncsiq977ggn2qvu75b7lpf478b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAM6NtTV82XPp2Ro6E5T3pgJ0Auh6a8m_o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "902749090561-6k9h8uncsiq977ggn2qvu75b7lpf478b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
