@@ -34,7 +34,24 @@ const ReportCard = props => (
         <Text category="label">Verified by {props.verification} people</Text>
       </View>
     )}
-    footer={props.isFollowed ? FollowedFooter : Footer}>
+    footer={
+      props.isFollowed
+        ? FollowedFooter
+        : () => (
+            <View style={[props.style, CardStyles.footerContainer]}>
+              <Button style={CardStyles.footerControl} size="small">
+                FOLLOW
+              </Button>
+              <Button
+                style={CardStyles.footerControl}
+                size="small"
+                onPress={() => props.verify()}
+                disabled={props.isVerified}>
+                {props.isVerified ? 'VERIFIED' : 'VERIFY'}
+              </Button>
+            </View>
+          )
+    }>
     <Text>{props.description}</Text>
   </Card>
 );

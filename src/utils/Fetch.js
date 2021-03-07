@@ -1,5 +1,4 @@
 const FetchPost = (route, details, response, error) => {
-  console.warn(details);
   fetch(global.apiUrl + route, {
     method: 'POST',
     headers: {
@@ -7,7 +6,7 @@ const FetchPost = (route, details, response, error) => {
     },
     body: JSON.stringify(details),
   })
-    .then(response => response.json())
+    .then(res => response)
     .then(responseData => {
       response(responseData);
     })

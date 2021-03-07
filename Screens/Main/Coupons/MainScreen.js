@@ -9,7 +9,7 @@ import {
   TopNavigationAction,
 } from '@ui-kitten/components';
 import {ReportCard} from '../../../src/component/Card';
-import {FetchGet} from '../../../src/utils/Fetch';
+import {FetchGet, FetchPost} from '../../../src/utils/Fetch';
 
 export default class CouponsScreen extends Component {
   constructor(props) {
@@ -17,11 +17,32 @@ export default class CouponsScreen extends Component {
     this.state = {
       refreshing: false,
       reportsData: [],
+      verified: [],
     };
   }
 
   componentDidMount() {
     this.getBlockchain();
+  }
+
+  verify(reportId) {
+    console.warn('hey');
+    FetchPost(
+      '/addBlock',
+      {
+        report_id: reportId,
+        type: 'verification',
+      },
+      () => {
+        console.warn('Success');
+        let verified = this.state.verified;
+        verified.push(reportId);
+        this.setState({verified: verified}, () => this.getBlockchain());
+      },
+      err => {
+        console.warn('Verify error.');
+      },
+    );
   }
 
   getBlockchain() {
@@ -30,18 +51,20 @@ export default class CouponsScreen extends Component {
       {},
       response => {
         let reports = {};
+        // FIND REPORTS
         response.forEach(element => {
           try {
             element = element.data;
             if (element.type === 'report') {
               element.verification = 0;
+              element.isVerified = false;
               reports[element.id] = element;
             }
           } catch (err) {
             console.error(err);
           }
         });
-        // Add verifications
+        // ADD VERIFICATION
         response.forEach(element => {
           try {
             element = element.data;
@@ -51,6 +74,10 @@ export default class CouponsScreen extends Component {
           } catch (err) {
             console.error(err);
           }
+        });
+        // DISABLED ALREADY VERIFIED
+        this.state.verified.forEach(element => {
+          reports[element].isVerified = true;
         });
 
         let resultList = [];
@@ -80,6 +107,7 @@ export default class CouponsScreen extends Component {
   );
 
   renderItem = ({item, index}) => {
+    item.verify = () => this.verify(item.id);
     return ReportCard(item);
   };
 
