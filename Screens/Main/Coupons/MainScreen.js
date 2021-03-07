@@ -40,7 +40,7 @@ export default class CouponsScreen extends Component {
         this.setState({verified: verified}, () => this.getBlockchain());
       },
       err => {
-        console.warn('Verify error.');
+        console.log('Verify error.');
       },
     );
   }
@@ -49,7 +49,7 @@ export default class CouponsScreen extends Component {
     let following = this.state.following;
     following.push(reportId);
     this.setState({following: following}, () => this.getBlockchain());
-    console.warn('Main following' + following);
+    console.log('Main following' + following);
     this.props.route.params.setFollowing(following);
   }
 

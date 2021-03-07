@@ -12,6 +12,7 @@ import ShowQRScreen from '../Main/Coupons/ShowQR';
 import AddReport from '../Main/Coupons/AddReport';
 import FriendsScreen from '../Main/FollowedReports/Friends';
 import PastPurchasesScreen from '../Main/Coupons/PastPurchases';
+import RegisterScreen from '../PreLogin/Register';
 
 import {createStackNavigator} from '@react-navigation/stack';
 
@@ -20,8 +21,8 @@ const Stack = createStackNavigator();
 
 // Bottom tab icons
 const PersonIcon = props => <Icon {...props} name="person" />;
-const PeopleIcon = props => <Icon {...props} name="people-outline" />;
-const CouponIcon = props => <Icon {...props} name="activity-outline" />;
+const StarIcon = props => <Icon {...props} name="star" />;
+const ShakeIcon = props => <Icon {...props} name="shake" />;
 
 const CouponsStack = props => (
   <Stack.Navigator headerMode="none">
@@ -54,12 +55,28 @@ const FollowedReportsStack = props => (
   </Stack.Navigator>
 );
 
+const ProfileStack = props => (
+  <Stack.Navigator headerMode="none">
+    <Stack.Screen
+      name="ProfileScreen"
+      component={ProfileScreen}
+      initialParams={{
+        mainFunctions: {
+          logout: () => props.route.params.mainFunctions.logout(),
+        },
+        isAnon: props.route.params.isAnon,
+      }}
+    />
+    <Screen name="RegisterScreen" component={RegisterScreen} />
+  </Stack.Navigator>
+);
+
 const BottomTabBar = ({navigation, state}) => (
   <BottomNavigation
     selectedIndex={state.index}
     onSelect={index => navigation.navigate(state.routeNames[index])}>
-    <BottomNavigationTab icon={PeopleIcon} />
-    <BottomNavigationTab icon={CouponIcon} />
+    <BottomNavigationTab icon={StarIcon} />
+    <BottomNavigationTab icon={ShakeIcon} />
     <BottomNavigationTab icon={PersonIcon} />
   </BottomNavigation>
 );
@@ -86,7 +103,7 @@ const TabNavigator = props => (
     />
     <Screen
       name="ProfileScreen"
-      component={ProfileScreen}
+      component={ProfileStack}
       initialParams={{
         mainFunctions: {logout: () => props.mainFunctions.logout()},
         isAnon: props.isAnon,

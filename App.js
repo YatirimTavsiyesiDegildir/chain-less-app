@@ -177,7 +177,7 @@ export default class App extends Component {
                 logout: () => this.logout(),
                 setFollowing: newFollowing => {
                   this.setState({following: newFollowing}, () =>
-                    console.warn(this.state.following),
+                    console.log(this.state.following),
                   );
                 },
               }}
