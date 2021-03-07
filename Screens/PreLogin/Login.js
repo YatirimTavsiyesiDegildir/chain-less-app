@@ -46,7 +46,7 @@ export default class LoginScreen extends Component {
           <View style={LoginStyles.logoContainer}>
             <View style={LoginStyles.logoOutline}>
               <Image
-                source={require('../../src/img/lyda_icon_transparent.png')}
+                source={require('../../src/img/logo.png')}
                 style={LoginStyles.logo}
                 resizeMode={'contain'}
               />
@@ -95,7 +95,9 @@ export default class LoginScreen extends Component {
                 onPress={() =>
                   this.props.route.params.mainFunctions.logInUserAnon()
                 }>
-                <Text>Continue Anonymously</Text>
+                <Text category="h5" style={LoginStyles.anonContinueText}>
+                  Continue Anonymously
+                </Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={this.navigateRegister}>
                 <Text>Register!</Text>
@@ -109,6 +111,9 @@ export default class LoginScreen extends Component {
 }
 
 const LoginStyles = StyleSheet.create({
+  anonContinueText: {
+    margin: 10,
+  },
   container: {
     flex: 1,
     justifyContent: 'center',

@@ -1,35 +1,127 @@
 import React, {Component} from 'react';
-import {SafeAreaView, StyleSheet} from 'react-native';
+import {SafeAreaView, StyleSheet, RefreshControl} from 'react-native';
 import {Divider, Layout, TopNavigation, List} from '@ui-kitten/components';
 import {ReportCard} from '../../../src/component/Card';
+import {FetchGet, FetchPost} from '../../../src/utils/Fetch';
 
 export default class FriendsScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
       refreshing: false,
-      reportsData: [
-        {
-          type: 'report',
-          data: {
-            id: 0,
-            name: 'First data!',
-            description: 'This is a test data',
-            place: 'Milky way galaxy.',
-            date: 0,
-          },
-        },
-        {type: 'verify', data: {report_id: 0, date: 0}},
-      ],
+      reportsData: [],
+      verified: [],
+      following: [],
     };
   }
-  componentDidMount() {}
+  componentDidMount() {
+    this.getBlockchain();
+  }
+
+  verify(reportId) {
+    FetchPost(
+      '/addBlock',
+      {
+        report_id: reportId,
+        type: 'verification',
+      },
+      () => {
+        console.log('Success');
+        let verified = this.state.verified;
+        verified.push(reportId);
+        this.props.route.params.setVerified(verified);
+        this.setState({verified: verified}, () => this.getBlockchain());
+      },
+      err => {
+        console.log('Verify error.');
+      },
+    );
+  }
+
+  follow(reportId) {
+    let following = this.state.following;
+    following.push(reportId);
+    this.props.route.params.setFollowing(following);
+    this.setState({following: following}, () => this.getBlockchain());
+  }
+
+  unfollow(reportId) {
+    let following = this.state.following;
+    const index = following.indexOf(reportId);
+    if (index > -1) {
+      following.splice(index, 1);
+    }
+    this.props.route.params.setFollowing(following);
+    this.setState({following: following}, () => this.getBlockchain());
+  }
+
+  getBlockchain() {
+    this.setState({
+      refreshing: true,
+      following: this.props.route.params.getFollowing(),
+      verified: this.props.route.params.getVerified(),
+    });
+    FetchGet(
+      '/blocks',
+      {},
+      response => {
+        let reports = {};
+        // FIND REPORTS
+        response.forEach(element => {
+          try {
+            element = element.data;
+            if (element.type === 'report') {
+              element.verification = 0;
+              element.isVerified = false;
+              element.isFollowed = false;
+              reports[element.id] = element;
+            }
+          } catch (err) {
+            console.error(err);
+          }
+        });
+        // ADD VERIFICATION
+        response.forEach(element => {
+          try {
+            element = element.data;
+            if (element.type === 'verification') {
+              reports[element.report_id].verification += 1;
+            }
+          } catch (err) {
+            console.error(err);
+          }
+        });
+        // DISABLED ALREADY VERIFIED
+        this.state.verified.forEach(element => {
+          reports[element].isVerified = true;
+        });
+        // DISABLE ALREADY FOLLOWED
+        this.state.following.forEach(element => {
+          reports[element].isFollowed = true;
+        });
+
+        let resultList = [];
+
+        for (let key in reports) {
+          console.log(reports[key].isFollowed);
+          if (reports[key].isFollowed) {
+            resultList.push(reports[key]);
+          }
+        }
+        this.setState({reportsData: resultList, refreshing: false});
+      },
+      err => {
+        console.log(err);
+        this.setState({refreshing: false});
+      },
+    );
+  }
 
   renderItem = ({item, index}) => {
-    if (item.type === 'report') {
-      item.isFollowed = true;
-      return ReportCard(item);
-    }
+    item.verify = () => this.verify(item.id);
+    item.follow = () => this.follow(item.id);
+    item.unfollow = () => this.unfollow(item.id);
+    return ReportCard(item);
   };
 
   render() {
@@ -47,6 +139,12 @@ export default class FriendsScreen extends Component {
             style={FriendsStyles.listContainer}
             data={this.state.reportsData}
             renderItem={this.renderItem}
+            refreshControl={
+              <RefreshControl
+                refreshing={this.state.refreshing}
+                onRefresh={() => this.getBlockchain()}
+              />
+            }
           />
         </Layout>
       </SafeAreaView>

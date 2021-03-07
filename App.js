@@ -28,7 +28,12 @@ global.subscriptionWarningEnabled = false;
 export default class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {isLoggedIn: false, isAnon: false, following: []};
+    this.state = {
+      isLoggedIn: false,
+      isAnon: false,
+      following: [],
+      verified: [],
+    };
   }
 
   componentDidMount() {
@@ -70,6 +75,7 @@ export default class App extends Component {
   async checkCredentials() {
     let email = await GetData('email');
     let password = await GetData('password');
+    let isAnon = await GetData('isAnon');
     if (
       email !== null &&
       email !== '' &&
@@ -112,11 +118,22 @@ export default class App extends Component {
         .catch(result => {
           this.clearLoginInfo();
         });
+    } else if (isAnon !== null && isAnon === true) {
+      let verified = await GetData('verified');
+      let following = await GetData('following');
+      if (verified !== null) {
+        this.setState({verified: verified});
+      }
+      if (following !== null) {
+        this.setState({following: following});
+      }
+      this.setState({isAnon: true, isLoggedIn: true});
     }
   }
 
   logInUserAnon() {
     this.setState({isLoggedIn: true, isAnon: true});
+    StoreData('isAnon', true);
   }
 
   logInUserWithPassword(email, password, callback) {
@@ -175,12 +192,18 @@ export default class App extends Component {
             <MainNavigator
               mainFunctions={{
                 logout: () => this.logout(),
+                setFollowing: newFollowing => {
+                  this.setState({following: newFollowing});
+                  StoreData('following', newFollowing);
+                },
               }}
               isAnon={this.state.isAnon}
-              following={this.state.following}
-              setFollowing={newFollowing =>
-                this.setState({following: newFollowing})
-              }
+              getFollowing={() => this.state.following}
+              getVerified={() => this.state.verified}
+              setVerified={verified => {
+                this.setState({verified: verified});
+                StoreData('verified', verified);
+              }}
             />
           ) : (
             <LoginNavigator
