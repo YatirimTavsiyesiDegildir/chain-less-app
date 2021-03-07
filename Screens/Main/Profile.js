@@ -71,11 +71,14 @@ export default class ProfileScreen extends Component {
         <Layout style={ProfileStyles.container}>
           {this.props.route.params.isAnon ? (
             <>
+              <Card>
               <Text>
                 You are currently anonymous. You can create an account to save
                 your data among devices. Even when you create an account,both
                 your reports and verifications will be anonymous.
               </Text>
+              </Card>
+              
               <Button style={ProfileStyles.button}>Create an Account</Button>
             </>
           ) : (
