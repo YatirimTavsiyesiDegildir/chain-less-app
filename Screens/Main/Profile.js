@@ -39,21 +39,29 @@ export default class ProfileScreen extends Component {
         <TopNavigation
           title="Profile"
           alignment="center"
-          accessoryRight={this.BackAction}
+          accessoryRight={
+            this.props.route.params.isAnon ? null : this.BackAction
+          }
         />
         <Divider />
         <Layout style={ProfileStyles.container}>
           {this.props.route.params.isAnon ? (
             <>
-              <Card>
-                <Text>
-                  You are currently anonymous. You can create an account to save
-                  your data among devices. Even when you create an account,both
-                  your reports and verifications will be anonymous.
-                </Text>
-              </Card>
+              <Text
+                category={'h6'}
+                style={{textAlign: 'center', marginBottom: 20}}>
+                You are currently anonymous. You can create an account to save
+                your data among devices. Even when you create an account,both
+                your reports and verifications will be kept anonymous.
+              </Text>
 
-              <Button style={ProfileStyles.button}>Create an Account</Button>
+              <Button
+                style={ProfileStyles.button}
+                onPress={() =>
+                  this.props.navigation.navigate('RegisterScreen')
+                }>
+                Create an Account
+              </Button>
             </>
           ) : (
             <>
@@ -97,8 +105,6 @@ const ProfileStyles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
     alignItems: 'center',
     paddingLeft: 20,
     paddingRight: 20,

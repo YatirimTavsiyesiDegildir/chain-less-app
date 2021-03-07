@@ -12,6 +12,7 @@ import ShowQRScreen from '../Main/Coupons/ShowQR';
 import AddReport from '../Main/Coupons/AddReport';
 import FriendsScreen from '../Main/FollowedReports/Friends';
 import PastPurchasesScreen from '../Main/Coupons/PastPurchases';
+import RegisterScreen from '../PreLogin/Register';
 
 import {createStackNavigator} from '@react-navigation/stack';
 
@@ -54,6 +55,22 @@ const FollowedReportsStack = props => (
   </Stack.Navigator>
 );
 
+const ProfileStack = props => (
+  <Stack.Navigator headerMode="none">
+    <Stack.Screen
+      name="ProfileScreen"
+      component={ProfileScreen}
+      initialParams={{
+        mainFunctions: {
+          logout: () => props.route.params.mainFunctions.logout(),
+        },
+        isAnon: props.route.params.isAnon,
+      }}
+    />
+    <Screen name="RegisterScreen" component={RegisterScreen} />
+  </Stack.Navigator>
+);
+
 const BottomTabBar = ({navigation, state}) => (
   <BottomNavigation
     selectedIndex={state.index}
@@ -86,7 +103,7 @@ const TabNavigator = props => (
     />
     <Screen
       name="ProfileScreen"
-      component={ProfileScreen}
+      component={ProfileStack}
       initialParams={{
         mainFunctions: {logout: () => props.mainFunctions.logout()},
         isAnon: props.isAnon,
