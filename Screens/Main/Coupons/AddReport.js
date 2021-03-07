@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {SafeAreaView, StyleSheet} from 'react-native';
+import {SafeAreaView, StyleSheet, Alert} from 'react-native';
 import {
   Divider,
   Layout,
@@ -50,23 +50,26 @@ export default class AddReport extends Component {
           style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
           <Input
             style={styles.input}
-            size='large'
-            label={() => <Text>Title of Incident</Text>}
+            size="large"
+            label={() => <Text category={'h4'}>Title of Incident</Text>}
             onChangeText={nextValue => this.setState({title: nextValue})}
+            value={this.state.title}
           />
           <Divider />
           <Input
             style={styles.input}
-            size='large'
-            label={() => <Text>Place</Text>}
+            size="large"
+            label={() => <Text category={'h5'}>Place</Text>}
+            value={this.state.place}
             onChangeText={nextValue => this.setState({place: nextValue})}
           />
           <Divider />
           <Input
-            style={styles.input}
-            label={() => <Text>Description</Text>}
+            style={styles.multilineInput}
+            label={() => <Text category={'h5'}>Description</Text>}
             multiline={true}
-            textStyle={{ minHeight: 64 }}
+            textStyle={{minHeight: 250}}
+            value={this.state.description}
             onChangeText={nextValue => this.setState({description: nextValue})}
           />
           <Divider />
@@ -81,7 +84,14 @@ export default class AddReport extends Component {
                   type: 'report',
                 },
                 () => {
-                  console.log('Success');
+                  Alert.alert(
+                    'You successfully added your report to Chainless Blockchain',
+                  );
+                  this.setState({
+                    title: '',
+                    description: '',
+                    place: '',
+                  });
                 },
                 err => {
                   console.log(JSON.stringify(err));
@@ -96,12 +106,18 @@ export default class AddReport extends Component {
   }
 }
 
-const AddReportStyles = StyleSheet.create({});
-
 const styles = StyleSheet.create({
   input: {
     marginVertical: 2,
     paddingLeft: 20,
-    paddingRight:20,
+    paddingRight: 20,
+    margin: 10,
+  },
+  multilineInput: {
+    marginVertical: 2,
+    paddingLeft: 20,
+    paddingRight: 20,
+    margin: 10,
+    minHeight: 250,
   },
 });
