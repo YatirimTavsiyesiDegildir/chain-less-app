@@ -24,6 +24,7 @@ export default class CouponsScreen extends Component {
 
   componentDidMount() {
     this.getBlockchain();
+    this.setState({following: this.props.route.params.getFollowing()});
   }
 
   verify(reportId) {
@@ -34,7 +35,6 @@ export default class CouponsScreen extends Component {
         type: 'verification',
       },
       () => {
-        console.warn('Success');
         let verified = this.state.verified;
         verified.push(reportId);
         this.setState({verified: verified}, () => this.getBlockchain());
@@ -49,6 +49,7 @@ export default class CouponsScreen extends Component {
     let following = this.state.following;
     following.push(reportId);
     this.setState({following: following}, () => this.getBlockchain());
+    console.warn('Main following' + following);
     this.props.route.params.setFollowing(following);
   }
 
@@ -107,7 +108,6 @@ export default class CouponsScreen extends Component {
         for (let key in reports) {
           resultList.push(reports[key]);
         }
-        console.log(resultList);
         this.setState({reportsData: resultList});
       },
       err => console.log(err),
