@@ -9,9 +9,8 @@ import {
 import ProfileScreen from '../Main/Profile';
 import CouponsScreen from '../Main/Coupons/MainScreen';
 import ShowQRScreen from '../Main/Coupons/ShowQR';
-import AddBankAPI from '../Main/Coupons/AddBankAPI';
-import FriendsScreen from '../Main/Friends/Friends';
-import AddFriendsScreen from '../Main/Friends/AddFriends';
+import AddReport from '../Main/Coupons/AddReport';
+import FriendsScreen from '../Main/FollowedReports/Friends';
 import PastPurchasesScreen from '../Main/Coupons/PastPurchases';
 
 import {createStackNavigator} from '@react-navigation/stack';
@@ -28,15 +27,14 @@ const CouponsStack = props => (
   <Stack.Navigator headerMode="none">
     <Stack.Screen name="CouponsScreen" component={CouponsScreen} />
     <Stack.Screen name="ShowQRScreen" component={ShowQRScreen} />
-    <Stack.Screen name="AddBankAPI" component={AddBankAPI} />
+    <Stack.Screen name="AddBankAPI" component={AddReport} />
     <Stack.Screen name="PastPurchasesScreen" component={PastPurchasesScreen} />
   </Stack.Navigator>
 );
 
-const FriendsStack = props => (
+const FollowedReportsStack = props => (
   <Stack.Navigator headerMode="none">
     <Stack.Screen name="FriendsScreen" component={FriendsScreen} />
-    <Stack.Screen name="AddFriendsScreen" component={AddFriendsScreen} />
   </Stack.Navigator>
 );
 
@@ -52,7 +50,7 @@ const BottomTabBar = ({navigation, state}) => (
 
 const TabNavigator = props => (
   <Navigator tabBar={props => <BottomTabBar {...props} />}>
-    <Screen name="FriendsScreen" component={FriendsStack} />
+    <Screen name="FriendsScreen" component={FollowedReportsStack} />
     <Screen name="CouponsScreen" component={CouponsStack} />
     <Screen
       name="ProfileScreen"

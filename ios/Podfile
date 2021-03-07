@@ -44,8 +44,8 @@ def flipper_post_install(installer)
   end
 end
 
-target 'Bulusunca' do
-  # Pods for Bulusunca
+target 'trueReport' do
+  # Pods for trueReport
   pod 'FBLazyVector', :path => "../node_modules/react-native/Libraries/FBLazyVector"
   pod 'FBReactNativeSpec', :path => "../node_modules/react-native/Libraries/FBReactNativeSpec"
   pod 'RCTRequired', :path => "../node_modules/react-native/Libraries/RCTRequired"
@@ -77,8 +77,7 @@ target 'Bulusunca' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
-
-  target 'BulusuncaTests' do
+  target 'trueReportTests' do
     inherit! :complete
     # Pods for testing
   end
@@ -95,10 +94,10 @@ target 'Bulusunca' do
   end
 end
 
-target 'Bulusunca-tvOS' do
-  # Pods for Bulusunca-tvOS
+target 'trueReport-tvOS' do
+  # Pods for trueReport-tvOS
 
-  target 'Bulusunca-tvOSTests' do
+  target 'trueReport-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end

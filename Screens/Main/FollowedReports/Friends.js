@@ -1,19 +1,9 @@
 import React, {Component} from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-} from 'react-native';
-import {
-  Divider,
-  Layout,
-  TopNavigation,
-  List,
-  Icon,
-  TopNavigationAction,
-} from '@ui-kitten/components';
+import {SafeAreaView, StyleSheet} from 'react-native';
+import {Divider, Layout, TopNavigation, List} from '@ui-kitten/components';
 import {ReportCard} from '../../../src/component/Card';
 
-export default class CouponsScreen extends Component {
+export default class FriendsScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -33,22 +23,7 @@ export default class CouponsScreen extends Component {
       ],
     };
   }
-
   componentDidMount() {}
-
-  PlusIcon = props => <Icon {...props} name="plus-outline" />;
-
-  renderRightActions = () => (
-    <React.Fragment>
-      <TopNavigationAction
-        icon={this.PlusIcon}
-        onPress={() => {
-          this.props.navigation.navigate('AddBankAPI');
-          this.setState({visible: true});
-        }}
-      />
-    </React.Fragment>
-  );
 
   renderItem = ({item, index}) => {
     if (item.type === 'report') {
@@ -60,7 +35,7 @@ export default class CouponsScreen extends Component {
     return (
       <SafeAreaView style={{flex: 1}}>
         <TopNavigation
-          title="Reports"
+          title="Followed Reports"
           alignment="center"
           accessoryRight={this.renderRightActions}
         />
@@ -68,7 +43,7 @@ export default class CouponsScreen extends Component {
         <Layout
           style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
           <List
-            style={CouponsStyles.listContainer}
+            style={FriendsStyles.listContainer}
             data={this.state.reportsData}
             renderItem={this.renderItem}
           />
@@ -78,14 +53,11 @@ export default class CouponsScreen extends Component {
   }
 }
 
-const CouponsStyles = StyleSheet.create({
+const FriendsStyles = StyleSheet.create({
   listContainer: {
     flex: 1,
     width: '100%',
     paddingLeft: 20,
     paddingRight: 20,
-  },
-  sectionTitle: {
-    textAlign: 'center',
   },
 });
