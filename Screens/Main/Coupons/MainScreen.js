@@ -18,7 +18,9 @@ export default class CouponsScreen extends Component {
       refreshing: false,
       reportsData: [],
       verified: [],
+      following: [],
     };
+    console.warn(this.props.route.params);
   }
 
   componentDidMount() {
@@ -45,6 +47,13 @@ export default class CouponsScreen extends Component {
     );
   }
 
+  follow(reportId) {
+    let following = this.state.following;
+    following.push(reportId);
+    this.setState({following: following}, () => this.getBlockchain());
+    this.props.route.params.setFollowing(following);
+  }
+
   getBlockchain() {
     FetchGet(
       '/blocks',
@@ -58,6 +67,7 @@ export default class CouponsScreen extends Component {
             if (element.type === 'report') {
               element.verification = 0;
               element.isVerified = false;
+              element.isFollowed = false;
               reports[element.id] = element;
             }
           } catch (err) {
@@ -78,6 +88,10 @@ export default class CouponsScreen extends Component {
         // DISABLED ALREADY VERIFIED
         this.state.verified.forEach(element => {
           reports[element].isVerified = true;
+        });
+        // DISABLE ALREADY FOLLOWED
+        this.state.following.forEach(element => {
+          reports[element].isFollowed = true;
         });
 
         let resultList = [];
@@ -108,6 +122,7 @@ export default class CouponsScreen extends Component {
 
   renderItem = ({item, index}) => {
     item.verify = () => this.verify(item.id);
+    item.follow = () => this.follow(item.id);
     return ReportCard(item);
   };
 

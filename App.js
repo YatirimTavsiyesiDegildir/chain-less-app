@@ -28,7 +28,7 @@ global.subscriptionWarningEnabled = false;
 export default class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {isLoggedIn: false, isAnon: false};
+    this.state = {isLoggedIn: false, isAnon: false, following: []};
   }
 
   componentDidMount() {
@@ -177,6 +177,10 @@ export default class App extends Component {
                 logout: () => this.logout(),
               }}
               isAnon={this.state.isAnon}
+              following={this.state.following}
+              setFollowing={newFollowing =>
+                this.setState({following: newFollowing})
+              }
             />
           ) : (
             <LoginNavigator
