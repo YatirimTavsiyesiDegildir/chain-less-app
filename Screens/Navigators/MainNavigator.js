@@ -12,6 +12,7 @@ import ShowQRScreen from '../Main/Coupons/ShowQR';
 import AddReport from '../Main/Coupons/AddReport';
 import FriendsScreen from '../Main/FollowedReports/Friends';
 import PastPurchasesScreen from '../Main/Coupons/PastPurchases';
+import RegisterScreen from '../PreLogin/Register';
 
 import {createStackNavigator} from '@react-navigation/stack';
 
@@ -20,8 +21,8 @@ const Stack = createStackNavigator();
 
 // Bottom tab icons
 const PersonIcon = props => <Icon {...props} name="person" />;
-const PeopleIcon = props => <Icon {...props} name="people-outline" />;
-const CouponIcon = props => <Icon {...props} name="activity-outline" />;
+const StarIcon = props => <Icon {...props} name="star" />;
+const ShakeIcon = props => <Icon {...props} name="shake" />;
 
 const CouponsStack = props => (
   <Stack.Navigator headerMode="none">
@@ -33,6 +34,8 @@ const CouponsStack = props => (
           props.route.params.setFollowing(following);
         },
         getFollowing: () => props.route.params.getFollowing(),
+        getVerified: () => props.route.params.getVerified(),
+        setVerified: verified => props.route.params.setVerified(verified),
       }}
     />
     <Stack.Screen name="ShowQRScreen" component={ShowQRScreen} />
@@ -49,8 +52,26 @@ const FollowedReportsStack = props => (
       initialParams={{
         setFollowing: following => props.route.params.setFollowing(following),
         getFollowing: () => props.route.params.getFollowing(),
+        getVerified: () => props.route.params.getVerified(),
+        setVerified: verified => props.route.params.setVerified(verified),
       }}
     />
+  </Stack.Navigator>
+);
+
+const ProfileStack = props => (
+  <Stack.Navigator headerMode="none">
+    <Stack.Screen
+      name="ProfileScreen"
+      component={ProfileScreen}
+      initialParams={{
+        mainFunctions: {
+          logout: () => props.route.params.mainFunctions.logout(),
+        },
+        isAnon: props.route.params.isAnon,
+      }}
+    />
+    <Screen name="RegisterScreen" component={RegisterScreen} />
   </Stack.Navigator>
 );
 
@@ -58,8 +79,8 @@ const BottomTabBar = ({navigation, state}) => (
   <BottomNavigation
     selectedIndex={state.index}
     onSelect={index => navigation.navigate(state.routeNames[index])}>
-    <BottomNavigationTab icon={PeopleIcon} />
-    <BottomNavigationTab icon={CouponIcon} />
+    <BottomNavigationTab icon={StarIcon} />
+    <BottomNavigationTab icon={ShakeIcon} />
     <BottomNavigationTab icon={PersonIcon} />
   </BottomNavigation>
 );
@@ -72,6 +93,8 @@ const TabNavigator = props => (
       initialParams={{
         setFollowing: following => props.setFollowing(following),
         getFollowing: () => props.getFollowing(),
+        getVerified: () => props.getVerified(),
+        setVerified: verified => props.setVerified(verified),
       }}
     />
     <Screen
@@ -82,11 +105,13 @@ const TabNavigator = props => (
           props.setFollowing(following);
         },
         getFollowing: () => props.getFollowing(),
+        getVerified: () => props.getVerified(),
+        setVerified: verified => props.setVerified(verified),
       }}
     />
     <Screen
       name="ProfileScreen"
-      component={ProfileScreen}
+      component={ProfileStack}
       initialParams={{
         mainFunctions: {logout: () => props.mainFunctions.logout()},
         isAnon: props.isAnon,
@@ -106,6 +131,8 @@ const MainNavigator = props => (
       setFollowing={following => {
         props.mainFunctions.setFollowing(following);
       }}
+      getVerified={() => props.getVerified()}
+      setVerified={verified => props.setVerified(verified)}
     />
   </NavigationContainer>
 );

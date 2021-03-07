@@ -24,7 +24,6 @@ export default class CouponsScreen extends Component {
 
   componentDidMount() {
     this.getBlockchain();
-    this.setState({following: this.props.route.params.getFollowing()});
   }
 
   verify(reportId) {
@@ -37,10 +36,11 @@ export default class CouponsScreen extends Component {
       () => {
         let verified = this.state.verified;
         verified.push(reportId);
+        this.props.route.params.setVerified(verified);
         this.setState({verified: verified}, () => this.getBlockchain());
       },
       err => {
-        console.warn('Verify error.');
+        console.log('Verify error.');
       },
     );
   }
@@ -48,9 +48,8 @@ export default class CouponsScreen extends Component {
   follow(reportId) {
     let following = this.state.following;
     following.push(reportId);
-    this.setState({following: following}, () => this.getBlockchain());
-    console.warn('Main following' + following);
     this.props.route.params.setFollowing(following);
+    this.setState({following: following}, () => this.getBlockchain());
   }
 
   unfollow(reportId) {
@@ -59,11 +58,15 @@ export default class CouponsScreen extends Component {
     if (index > -1) {
       following.splice(index, 1);
     }
-    this.setState({following: following}, () => this.getBlockchain());
     this.props.route.params.setFollowing(following);
+    this.setState({following: following}, () => this.getBlockchain());
   }
 
   getBlockchain() {
+    this.setState({
+      following: this.props.route.params.getFollowing(),
+      verified: this.props.route.params.getVerified(),
+    });
     FetchGet(
       '/blocks',
       {},

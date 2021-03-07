@@ -95,7 +95,9 @@ export default class LoginScreen extends Component {
                 onPress={() =>
                   this.props.route.params.mainFunctions.logInUserAnon()
                 }>
-                <Text category='h5' >Continue Anonymously</Text>
+                <Text category="h5" style={LoginStyles.anonContinueText}>
+                  Continue Anonymously
+                </Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={this.navigateRegister}>
                 <Text>Register!</Text>
@@ -109,6 +111,9 @@ export default class LoginScreen extends Component {
 }
 
 const LoginStyles = StyleSheet.create({
+  anonContinueText: {
+    margin: 10,
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
