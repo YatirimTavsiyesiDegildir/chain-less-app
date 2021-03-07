@@ -15,8 +15,12 @@ const ReportCard = props => (
     footer={
       props.isFollowed
         ? () => (
-            <View {...props} style={[props.style, CardStyles.footerContainer]}>
-              <Button appearance='outline' style={CardStyles.footerControl} size="small" onPress={() => props.unfollow()}>
+            <View style={CardStyles.footerContainer}>
+              <Button
+                appearance="outline"
+                style={CardStyles.footerControl}
+                size="small"
+                onPress={() => props.unfollow()}>
                 UNFOLLOW
               </Button>
               <Button
@@ -29,7 +33,7 @@ const ReportCard = props => (
             </View>
           )
         : () => (
-            <View {...props} style={[props.style, CardStyles.footerContainer]}>
+            <View style={CardStyles.footerContainer}>
               <Button
                 style={CardStyles.footerControl}
                 size="small"
@@ -40,7 +44,8 @@ const ReportCard = props => (
                 style={CardStyles.footerControl}
                 size="small"
                 onPress={() => props.verify()}
-                disabled={props.isVerified}>
+                disabled={props.isVerified}
+                status="success">
                 {props.isVerified ? 'VERIFIED' : 'VERIFY'}
               </Button>
             </View>
@@ -63,9 +68,10 @@ const CardStyles = StyleSheet.create({
   footerContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
+    margin: 15,
   },
   footerControl: {
-    marginHorizontal: 2,
+    marginHorizontal: 4,
   },
   cardInnerContainer: {
     marginHorizontal: -24,
