@@ -2,24 +2,10 @@ import React from 'react';
 import {StyleSheet, View, Image} from 'react-native';
 import {Button, Card, Text, Icon, Spinner} from '@ui-kitten/components';
 
-const Footer = props => (
-  <View {...props} style={[props.style, CardStyles.footerContainer]}>
-    <Button style={CardStyles.footerControl} size="small">
-      FOLLOW
-    </Button>
-    <Button style={CardStyles.footerControl} size="small">
-      VERIFY
-    </Button>
-  </View>
-);
-
 const FollowedFooter = props => (
   <View {...props} style={[props.style, CardStyles.footerContainer]}>
     <Button style={CardStyles.footerControl} size="small">
       UNFOLLOW
-    </Button>
-    <Button style={CardStyles.footerControl} size="small">
-      VERIFY
     </Button>
   </View>
 );
@@ -39,8 +25,12 @@ const ReportCard = props => (
         ? FollowedFooter
         : () => (
             <View style={[props.style, CardStyles.footerContainer]}>
-              <Button style={CardStyles.footerControl} size="small">
-                FOLLOW
+              <Button
+                style={CardStyles.footerControl}
+                size="small"
+                onPress={() => props.follow()}
+                disabled={props.isFollowed}>
+                {props.isFollowed ? 'FOLLOWED' : 'FOLLOW'}
               </Button>
               <Button
                 style={CardStyles.footerControl}

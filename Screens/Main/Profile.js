@@ -23,6 +23,7 @@ export default class ProfileScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {visible: false, badgeText: ''};
+    console.warn(this.props.route.params);
   }
 
   BackAction = () => (
@@ -31,33 +32,6 @@ export default class ProfileScreen extends Component {
       onPress={() => this.props.route.params.mainFunctions.logout()}
     />
   );
-
-  ModalWithBackdropShowcase = (badgeString, imgUri) => {
-    return (
-      <View style={styles.container}>
-        <TouchableOpacity
-          onPress={() =>
-            this.setState({visible: true, badgeText: badgeString})
-          }>
-          <Image
-            style={{height: 100, width: 100, margin: 15}}
-            source={{
-              uri: imgUri,
-            }}
-          />
-        </TouchableOpacity>
-
-        <Modal
-          visible={this.state.visible}
-          backdropStyle={styles.backdrop}
-          onBackdropPress={() => this.setState({visible: false})}>
-          <Card disabled={true} style={{margin: 10}}>
-            <Text>{this.state.badgeText}</Text>
-          </Card>
-        </Modal>
-      </View>
-    );
-  };
 
   render() {
     return (
@@ -72,13 +46,13 @@ export default class ProfileScreen extends Component {
           {this.props.route.params.isAnon ? (
             <>
               <Card>
-              <Text>
-                You are currently anonymous. You can create an account to save
-                your data among devices. Even when you create an account,both
-                your reports and verifications will be anonymous.
-              </Text>
+                <Text>
+                  You are currently anonymous. You can create an account to save
+                  your data among devices. Even when you create an account,both
+                  your reports and verifications will be anonymous.
+                </Text>
               </Card>
-              
+
               <Button style={ProfileStyles.button}>Create an Account</Button>
             </>
           ) : (
@@ -128,13 +102,13 @@ const ProfileStyles = StyleSheet.create({
     alignItems: 'center',
     paddingLeft: 20,
     paddingRight: 20,
-    paddingBottom:20,
+    paddingBottom: 20,
   },
   button: {
     paddingLeft: 20,
     paddingRight: 20,
-    paddingBottom:20,
-    paddingTop:20,
+    paddingBottom: 20,
+    paddingTop: 20,
   },
   avatarContainer: {
     flex: 2,
