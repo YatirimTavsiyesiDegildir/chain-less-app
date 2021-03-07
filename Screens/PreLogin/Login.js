@@ -37,7 +37,6 @@ export default class LoginScreen extends Component {
     </View>
   );
 
-  //TODO: Replace image with new one
   render() {
     return (
       <SafeAreaView style={{flex: 1}}>
@@ -53,8 +52,11 @@ export default class LoginScreen extends Component {
             </View>
           </View>
           <View style={LoginStyles.inputContainer}>
-            <Text category="h2" style={{marginBottom: 30, marginTop: 30}}>
-              Welcome!
+            <Text
+              category="h1"
+              style={{marginBottom: 30, marginTop: 30, textAlign: 'center'}}
+              textAlign={'center'}>
+              Welcome to Chainless!
             </Text>
             <Input
               placeholder="E-mail"

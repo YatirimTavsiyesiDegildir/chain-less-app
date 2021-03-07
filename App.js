@@ -1,28 +1,21 @@
 import React, {Component} from 'react';
-import {Alert, YellowBox} from 'react-native';
+import {Alert} from 'react-native';
 import * as eva from '@eva-design/eva';
 import {ApplicationProvider, IconRegistry} from '@ui-kitten/components';
 import {EvaIconsPack} from '@ui-kitten/eva-icons';
 import LoginNavigator from './Screens/Navigators/LoginNavigator';
 import MainNavigator from './Screens/Navigators/MainNavigator';
 import {StoreData, GetData} from './src/utils/AsyncStorage';
-import {call} from 'react-native-reanimated';
 import theme from './src/themes/theme';
 import {client} from './back-end/OurApi';
 import {gql} from '@apollo/client';
-
-YellowBox.ignoreWarnings(['Warning: ReactNative.createElement']);
+import auth from '@react-native-firebase/auth';
 
 /**GLOBALS START*/
 global.apiUrl = 'https://truereport.ey.r.appspot.com';
 global.email = '';
-global.userId = 0;
-global.tckn = '';
-global.realName = '';
+global.uid = '';
 global.password = '';
-global.username = '';
-global.friendsAdded = false;
-global.subscriptionWarningEnabled = false;
 /**GLOBALS END*/
 
 export default class App extends Component {
@@ -42,33 +35,22 @@ export default class App extends Component {
 
   clearLoginInfo() {
     StoreData('email', '');
-    StoreData('user_id', '');
-    StoreData('tckn', '');
-    StoreData('real_name', '');
+    StoreData('uid', '');
     StoreData('password', '');
-    StoreData('username', '');
+    StoreData('isAnon', false);
     global.email = '';
-    global.userId = '';
-    global.tckn = '';
-    global.realName = '';
+    global.uid = '';
     global.password = '';
-    global.username = '';
     this.setState({isLoggedIn: false});
   }
 
   saveLoginInfo(user) {
     StoreData('email', user.email);
-    StoreData('user_id', user.id);
-    StoreData('tckn', user.tckn);
-    StoreData('real_name', user.name);
+    StoreData('uid', user.uid);
     StoreData('password', user.password);
-    StoreData('username', user.username);
     global.email = user.email;
-    global.userId = user.id;
-    global.tckn = user.tckn;
-    global.realName = user.name;
+    global.uid = user.uid;
     global.password = user.password;
-    global.username = user.username;
     this.setState({isLoggedIn: true});
   }
 
@@ -82,41 +64,25 @@ export default class App extends Component {
       password !== null &&
       password !== ''
     ) {
-      client
-        .query({
-          query: gql`
-            query MyQuery($email: String, $password: String) {
-              users(
-                where: {
-                  email: {_eq: $email}
-                  _and: {_or: {password: {_eq: $password}}}
-                }
-              ) {
-                email
-                id
-                tckn
-                username
-                name
-                password
-                phonenumber
-              }
-            }
-          `,
-          variables: {
-            email: email,
-            password: password,
-          },
+      await auth()
+        .signInWithEmailAndPassword(email, password)
+        .then(res => {
+          console.log('User account created & signed in!');
+          let user = {};
+          user.email = email;
+          user.password = password;
+          user.uid = res.user.uid;
+          this.saveLoginInfo(user);
         })
-        .then(result => {
-          if (result.data.users.length === 1) {
-            let user = result.data.users[0];
-            this.saveLoginInfo(user);
+        .catch(error => {
+          if (error.code === 'auth/email-already-in-use') {
+            Alert.alert('Email already in use, please try sign-in.');
+          } else if (error.code === 'auth/invalid-email') {
+            Alert.alert('Email address is invalid');
           } else {
-            this.clearLoginInfo();
+            Alert.alert('A problem occurred.');
           }
-        })
-        .catch(result => {
-          this.clearLoginInfo();
+          console.error(error);
         });
     } else if (isAnon !== null && isAnon === true) {
       let verified = await GetData('verified');
@@ -136,45 +102,53 @@ export default class App extends Component {
     StoreData('isAnon', true);
   }
 
-  logInUserWithPassword(email, password, callback) {
-    client
-      .query({
-        query: gql`
-          query MyQuery($email: String, $password: String) {
-            users(
-              where: {
-                email: {_eq: $email}
-                _and: {_or: {password: {_eq: $password}}}
-              }
-            ) {
-              email
-              id
-              tckn
-              username
-              name
-              password
-              phonenumber
-            }
-          }
-        `,
-        variables: {
-          email: email,
-          password: password,
-        },
-      })
-      .then(result => {
-        if (result.data.users.length === 1) {
-          let user = result.data.users[0];
-          this.saveLoginInfo(user);
-          callback();
-        } else {
-          Alert.alert('Email veya sifre yanlis.');
-          callback();
-        }
-      })
-      .catch(result => {
-        Alert.alert('Bir hata olustu.');
+  async logInUserWithPassword(email, password, callback) {
+    await auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(res => {
+        console.log('User account created & signed in!');
+        let user = {};
+        user.email = email;
+        user.password = password;
+        user.uid = res.user.uid;
+        this.saveLoginInfo(user);
         callback();
+      })
+      .catch(error => {
+        if (error.code === 'auth/email-already-in-use') {
+          Alert.alert('Email already in use, please try sign-in.');
+        } else if (error.code === 'auth/invalid-email') {
+          Alert.alert('Email address is invalid');
+        } else {
+          Alert.alert('A problem occurred.');
+        }
+        callback();
+        console.error(error);
+      });
+  }
+
+  async register(email, password) {
+    await auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then(res => {
+        console.log('User account created & signed in!');
+        let user = {};
+        user.email = email;
+        user.password = password;
+        user.uid = res.user.uid;
+        this.saveLoginInfo(user);
+        callback();
+      })
+      .catch(error => {
+        if (error.code === 'auth/email-already-in-use') {
+          Alert.alert('Email already in use, please try sign-in.');
+        } else if (error.code === 'auth/invalid-email') {
+          Alert.alert('Email address is invalid');
+        } else {
+          Alert.alert('A problem occurred.');
+        }
+        callback();
+        console.error(error);
       });
   }
 
@@ -211,6 +185,8 @@ export default class App extends Component {
                 logInUser: (email, password, callback) =>
                   this.logInUserWithPassword(email, password, callback),
                 logInUserAnon: () => this.logInUserAnon(),
+                register: (email, password, callback) =>
+                  this.register(email, password, callback),
               }}
             />
           )}

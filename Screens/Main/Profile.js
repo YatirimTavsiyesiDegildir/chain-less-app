@@ -39,9 +39,7 @@ export default class ProfileScreen extends Component {
         <TopNavigation
           title="Profile"
           alignment="center"
-          accessoryRight={
-            this.props.route.params.isAnon ? null : this.BackAction
-          }
+          accessoryRight={this.BackAction}
         />
         <Divider />
         <Layout style={ProfileStyles.container}>
@@ -65,23 +63,21 @@ export default class ProfileScreen extends Component {
             </>
           ) : (
             <>
-              <View style={ProfileStyles.avatarContainer}>
-                <View style={ProfileStyles.avatarInnerContainer}>
+              <View style={ProfileStyles.logoContainer}>
+                <View style={ProfileStyles.logoOutline}>
                   <Image
-                    style={ProfileStyles.avatar}
-                    source={{
-                      uri:
-                        'https://project-lyda.s3.eu-central-1.amazonaws.com/pp/' +
-                        global.userId +
-                        '.png',
-                    }}
+                    source={require('../../src/img/logo.png')}
+                    style={ProfileStyles.logo}
+                    resizeMode={'contain'}
                   />
                 </View>
               </View>
               <View style={ProfileStyles.infoContainer}>
-                <Text category={'h1'}>{global.realName}</Text>
+                <Text category={'h1'} style={{textAlign: 'center'}}>
+                  {global.email}
+                </Text>
                 <Text category={'label'} appearance={'hint'}>
-                  {'@' + global.username}
+                  {'@' + global.uid}
                 </Text>
               </View>
             </>
@@ -154,5 +150,21 @@ const ProfileStyles = StyleSheet.create({
     },
     shadowOpacity: 0.5,
     shadowRadius: 10,
+  },
+  logoOutline: {
+    width: 250,
+    height: 250,
+    backgroundColor: 'white',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 30,
+  },
+  logoContainer: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  logo: {
+    marginTop: 50,
+    width: 200,
   },
 });
