@@ -29,6 +29,7 @@ export default class FriendsScreen extends Component {
         console.log('Success');
         let verified = this.state.verified;
         verified.push(reportId);
+        this.props.route.params.setVerified(verified);
         this.setState({verified: verified}, () => this.getBlockchain());
       },
       err => {
@@ -40,8 +41,8 @@ export default class FriendsScreen extends Component {
   follow(reportId) {
     let following = this.state.following;
     following.push(reportId);
-    this.setState({following: following}, () => this.getBlockchain());
     this.props.route.params.setFollowing(following);
+    this.setState({following: following}, () => this.getBlockchain());
   }
 
   unfollow(reportId) {
@@ -50,16 +51,15 @@ export default class FriendsScreen extends Component {
     if (index > -1) {
       following.splice(index, 1);
     }
-    this.setState({following: following}, () => this.getBlockchain());
     this.props.route.params.setFollowing(following);
+    this.setState({following: following}, () => this.getBlockchain());
   }
 
   getBlockchain() {
-    console.log(this.props.route.params.getFollowing());
-
     this.setState({
       refreshing: true,
       following: this.props.route.params.getFollowing(),
+      verified: this.props.route.params.getVerified(),
     });
     FetchGet(
       '/blocks',

@@ -34,6 +34,8 @@ const CouponsStack = props => (
           props.route.params.setFollowing(following);
         },
         getFollowing: () => props.route.params.getFollowing(),
+        getVerified: () => props.route.params.getVerified(),
+        setVerified: verified => props.route.params.setVerified(verified),
       }}
     />
     <Stack.Screen name="ShowQRScreen" component={ShowQRScreen} />
@@ -50,6 +52,8 @@ const FollowedReportsStack = props => (
       initialParams={{
         setFollowing: following => props.route.params.setFollowing(following),
         getFollowing: () => props.route.params.getFollowing(),
+        getVerified: () => props.route.params.getVerified(),
+        setVerified: verified => props.route.params.setVerified(verified),
       }}
     />
   </Stack.Navigator>
@@ -89,6 +93,8 @@ const TabNavigator = props => (
       initialParams={{
         setFollowing: following => props.setFollowing(following),
         getFollowing: () => props.getFollowing(),
+        getVerified: () => props.getVerified(),
+        setVerified: verified => props.setVerified(verified),
       }}
     />
     <Screen
@@ -99,6 +105,8 @@ const TabNavigator = props => (
           props.setFollowing(following);
         },
         getFollowing: () => props.getFollowing(),
+        getVerified: () => props.getVerified(),
+        setVerified: verified => props.setVerified(verified),
       }}
     />
     <Screen
@@ -123,6 +131,8 @@ const MainNavigator = props => (
       setFollowing={following => {
         props.mainFunctions.setFollowing(following);
       }}
+      getVerified={() => props.getVerified()}
+      setVerified={verified => props.setVerified(verified)}
     />
   </NavigationContainer>
 );
