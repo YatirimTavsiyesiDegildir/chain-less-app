@@ -9,7 +9,7 @@ import {
 import ProfileScreen from '../Main/Profile';
 import CouponsScreen from '../Main/Coupons/MainScreen';
 import ShowQRScreen from '../Main/Coupons/ShowQR';
-import AddBankAPI from '../Main/Coupons/AddBankAPI';
+import AddReport from '../Main/Coupons/AddReport';
 import FriendsScreen from '../Main/FollowedReports/Friends';
 import PastPurchasesScreen from '../Main/Coupons/PastPurchases';
 
@@ -27,7 +27,7 @@ const CouponsStack = props => (
   <Stack.Navigator headerMode="none">
     <Stack.Screen name="CouponsScreen" component={CouponsScreen} />
     <Stack.Screen name="ShowQRScreen" component={ShowQRScreen} />
-    <Stack.Screen name="AddBankAPI" component={AddBankAPI} />
+    <Stack.Screen name="AddBankAPI" component={AddReport} />
     <Stack.Screen name="PastPurchasesScreen" component={PastPurchasesScreen} />
   </Stack.Navigator>
 );
