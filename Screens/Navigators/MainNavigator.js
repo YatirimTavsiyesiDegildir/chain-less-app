@@ -8,10 +8,8 @@ import {
 } from '@ui-kitten/components';
 import ProfileScreen from '../Main/Profile';
 import CouponsScreen from '../Main/Coupons/MainScreen';
-import ShowQRScreen from '../Main/Coupons/ShowQR';
 import AddReport from '../Main/Coupons/AddReport';
 import FriendsScreen from '../Main/FollowedReports/Friends';
-import PastPurchasesScreen from '../Main/Coupons/PastPurchases';
 import RegisterScreen from '../PreLogin/Register';
 
 import {createStackNavigator} from '@react-navigation/stack';
@@ -38,9 +36,7 @@ const CouponsStack = props => (
         setVerified: verified => props.route.params.setVerified(verified),
       }}
     />
-    <Stack.Screen name="ShowQRScreen" component={ShowQRScreen} />
     <Stack.Screen name="AddBankAPI" component={AddReport} />
-    <Stack.Screen name="PastPurchasesScreen" component={PastPurchasesScreen} />
   </Stack.Navigator>
 );
 
