@@ -74,6 +74,7 @@ export default class AddReport extends Component {
                   title: this.state.title,
                   description: this.state.description,
                   place: this.state.place,
+                  type: 'report',
                 },
                 () => {
                   console.warn('Success');
