@@ -37,6 +37,7 @@ export default class App extends Component {
     StoreData('email', '');
     StoreData('uid', '');
     StoreData('password', '');
+    StoreData('isAnon', false);
     global.email = '';
     global.uid = '';
     global.password = '';
