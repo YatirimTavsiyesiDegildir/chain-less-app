@@ -26,13 +26,13 @@ export default class FriendsScreen extends Component {
         type: 'verification',
       },
       () => {
-        console.warn('Success');
+        console.log('Success');
         let verified = this.state.verified;
         verified.push(reportId);
         this.setState({verified: verified}, () => this.getBlockchain());
       },
       err => {
-        console.warn('Verify error.');
+        console.log('Verify error.');
       },
     );
   }
@@ -55,7 +55,7 @@ export default class FriendsScreen extends Component {
   }
 
   getBlockchain() {
-    console.warn(this.props.route.params.getFollowing());
+    console.log(this.props.route.params.getFollowing());
 
     this.setState({
       refreshing: true,

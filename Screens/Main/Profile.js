@@ -23,7 +23,7 @@ export default class ProfileScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {visible: false, badgeText: ''};
-    console.warn(this.props.route.params);
+    console.log(this.props.route.params);
   }
 
   BackAction = () => (

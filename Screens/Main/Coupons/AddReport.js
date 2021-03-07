@@ -72,10 +72,10 @@ export default class AddReport extends Component {
                   type: 'report',
                 },
                 () => {
-                  console.warn('Success');
+                  console.log('Success');
                 },
                 err => {
-                  console.warn(JSON.stringify(err));
+                  console.log(JSON.stringify(err));
                 },
               );
             }}>
