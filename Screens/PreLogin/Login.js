@@ -95,7 +95,7 @@ export default class LoginScreen extends Component {
                 onPress={() =>
                   this.props.route.params.mainFunctions.logInUserAnon()
                 }>
-                <Text>Continue Anonymously</Text>
+                <Text category='h5' >Continue Anonymously</Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={this.navigateRegister}>
                 <Text>Register!</Text>

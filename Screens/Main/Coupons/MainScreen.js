@@ -18,15 +18,16 @@ export default class CouponsScreen extends Component {
       refreshing: false,
       reportsData: [],
       verified: [],
+      following: [],
     };
   }
 
   componentDidMount() {
     this.getBlockchain();
+    this.setState({following: this.props.route.params.getFollowing()});
   }
 
   verify(reportId) {
-    console.warn('hey');
     FetchPost(
       '/addBlock',
       {
@@ -34,7 +35,6 @@ export default class CouponsScreen extends Component {
         type: 'verification',
       },
       () => {
-        console.warn('Success');
         let verified = this.state.verified;
         verified.push(reportId);
         this.setState({verified: verified}, () => this.getBlockchain());
@@ -43,6 +43,24 @@ export default class CouponsScreen extends Component {
         console.warn('Verify error.');
       },
     );
+  }
+
+  follow(reportId) {
+    let following = this.state.following;
+    following.push(reportId);
+    this.setState({following: following}, () => this.getBlockchain());
+    console.warn('Main following' + following);
+    this.props.route.params.setFollowing(following);
+  }
+
+  unfollow(reportId) {
+    let following = this.state.following;
+    const index = following.indexOf(reportId);
+    if (index > -1) {
+      following.splice(index, 1);
+    }
+    this.setState({following: following}, () => this.getBlockchain());
+    this.props.route.params.setFollowing(following);
   }
 
   getBlockchain() {
@@ -58,6 +76,7 @@ export default class CouponsScreen extends Component {
             if (element.type === 'report') {
               element.verification = 0;
               element.isVerified = false;
+              element.isFollowed = false;
               reports[element.id] = element;
             }
           } catch (err) {
@@ -79,13 +98,16 @@ export default class CouponsScreen extends Component {
         this.state.verified.forEach(element => {
           reports[element].isVerified = true;
         });
+        // DISABLE ALREADY FOLLOWED
+        this.state.following.forEach(element => {
+          reports[element].isFollowed = true;
+        });
 
         let resultList = [];
 
         for (let key in reports) {
           resultList.push(reports[key]);
         }
-        console.log(resultList);
         this.setState({reportsData: resultList});
       },
       err => console.log(err),
@@ -108,6 +130,8 @@ export default class CouponsScreen extends Component {
 
   renderItem = ({item, index}) => {
     item.verify = () => this.verify(item.id);
+    item.follow = () => this.follow(item.id);
+    item.unfollow = () => this.unfollow(item.id);
     return ReportCard(item);
   };
 

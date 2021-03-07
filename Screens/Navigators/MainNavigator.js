@@ -25,7 +25,16 @@ const CouponIcon = props => <Icon {...props} name="activity-outline" />;
 
 const CouponsStack = props => (
   <Stack.Navigator headerMode="none">
-    <Stack.Screen name="CouponsScreen" component={CouponsScreen} />
+    <Stack.Screen
+      name="CouponsScreen"
+      component={CouponsScreen}
+      initialParams={{
+        setFollowing: following => {
+          props.route.params.setFollowing(following);
+        },
+        getFollowing: () => props.route.params.getFollowing(),
+      }}
+    />
     <Stack.Screen name="ShowQRScreen" component={ShowQRScreen} />
     <Stack.Screen name="AddBankAPI" component={AddReport} />
     <Stack.Screen name="PastPurchasesScreen" component={PastPurchasesScreen} />
@@ -34,7 +43,14 @@ const CouponsStack = props => (
 
 const FollowedReportsStack = props => (
   <Stack.Navigator headerMode="none">
-    <Stack.Screen name="FriendsScreen" component={FriendsScreen} />
+    <Stack.Screen
+      name="FriendsScreen"
+      component={FriendsScreen}
+      initialParams={{
+        setFollowing: following => props.route.params.setFollowing(following),
+        getFollowing: () => props.route.params.getFollowing(),
+      }}
+    />
   </Stack.Navigator>
 );
 
@@ -50,8 +66,24 @@ const BottomTabBar = ({navigation, state}) => (
 
 const TabNavigator = props => (
   <Navigator tabBar={props => <BottomTabBar {...props} />}>
-    <Screen name="FriendsScreen" component={FollowedReportsStack} />
-    <Screen name="CouponsScreen" component={CouponsStack} />
+    <Screen
+      name="FriendsScreen"
+      component={FollowedReportsStack}
+      initialParams={{
+        setFollowing: following => props.setFollowing(following),
+        getFollowing: () => props.getFollowing(),
+      }}
+    />
+    <Screen
+      name="CouponsScreen"
+      component={CouponsStack}
+      initialParams={{
+        setFollowing: following => {
+          props.setFollowing(following);
+        },
+        getFollowing: () => props.getFollowing(),
+      }}
+    />
     <Screen
       name="ProfileScreen"
       component={ProfileScreen}
@@ -70,6 +102,10 @@ const MainNavigator = props => (
         logout: () => props.mainFunctions.logout(),
       }}
       isAnon={props.isAnon}
+      getFollowing={() => props.getFollowing()}
+      setFollowing={following => {
+        props.mainFunctions.setFollowing(following);
+      }}
     />
   </NavigationContainer>
 );
