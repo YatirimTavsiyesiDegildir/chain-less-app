@@ -15,14 +15,8 @@ const FetchPost = (route, details, response, error) => {
 };
 
 const FetchGet = (route, details, response, error) => {
-  let urlParams = '?';
-  for (let property in details) {
-    let encodedKey = encodeURIComponent(property);
-    let encodedValue = encodeURIComponent(details[property]);
-    urlParams += encodedKey + '=' + encodedValue + '&';
-  }
-  urlParams = urlParams.substring(0, urlParams.length - 1);
-  fetch(global.apiUrl + route + urlParams, {
+  console.log(global.apiUrl + route);
+  fetch(global.apiUrl + route, {
     method: 'GET',
   })
     .then(response => response.json())
