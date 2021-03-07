@@ -48,7 +48,7 @@ const ReportCard = props => (
     style={CardStyles.card}
     header={() => (
       <View style={CardStyles.header}>
-        <Text category="h6">{props.data.name}</Text>
+        <Text category="h6">{props.data.title}</Text>
         <Text category="s1">from {props.data.place}</Text>
       </View>
     )}

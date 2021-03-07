@@ -23,7 +23,7 @@ export default class CouponsScreen extends Component {
           type: 'report',
           data: {
             id: 0,
-            name: 'First data!',
+            title: 'First data!',
             description: 'This is a test data',
             place: 'Milky way galaxy.',
             date: 0,

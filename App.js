@@ -5,8 +5,7 @@ import {ApplicationProvider, IconRegistry} from '@ui-kitten/components';
 import {EvaIconsPack} from '@ui-kitten/eva-icons';
 import LoginNavigator from './Screens/Navigators/LoginNavigator';
 import MainNavigator from './Screens/Navigators/MainNavigator';
-import {FetchPost} from './Utils/Fetch';
-import {StoreData, GetData} from './Utils/AsyncStorage';
+import {StoreData, GetData} from './src/utils/AsyncStorage';
 import {call} from 'react-native-reanimated';
 import theme from './src/themes/theme';
 import {client} from './back-end/OurApi';
@@ -15,6 +14,7 @@ import {gql} from '@apollo/client';
 YellowBox.ignoreWarnings(['Warning: ReactNative.createElement']);
 
 /**GLOBALS START*/
+global.apiUrl = 'https://truereport.ey.r.appspot.com';
 global.email = '';
 global.userId = 0;
 global.tckn = '';
