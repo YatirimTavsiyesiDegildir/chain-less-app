@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {SafeAreaView, StyleSheet} from 'react-native';
+import {RefreshControl, SafeAreaView, StyleSheet} from 'react-native';
 import {
   Divider,
   Layout,
@@ -66,6 +66,7 @@ export default class CouponsScreen extends Component {
     this.setState({
       following: this.props.route.params.getFollowing(),
       verified: this.props.route.params.getVerified(),
+      refreshing: true,
     });
     FetchGet(
       '/blocks',
@@ -111,9 +112,11 @@ export default class CouponsScreen extends Component {
         for (let key in reports) {
           resultList.push(reports[key]);
         }
-        this.setState({reportsData: resultList});
+        this.setState({reportsData: resultList, refreshing: false});
       },
-      err => console.log(err),
+      err => {
+        console.log(err), this.setState({refreshing: false});
+      },
     );
   }
 
@@ -153,6 +156,12 @@ export default class CouponsScreen extends Component {
             style={CouponsStyles.listContainer}
             data={this.state.reportsData}
             renderItem={this.renderItem}
+            refreshControl={
+              <RefreshControl
+                refreshing={this.state.refreshing}
+                onRefresh={() => this.getBlockchain()}
+              />
+            }
           />
         </Layout>
       </SafeAreaView>
