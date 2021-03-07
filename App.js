@@ -75,6 +75,7 @@ export default class App extends Component {
   async checkCredentials() {
     let email = await GetData('email');
     let password = await GetData('password');
+    let isAnon = await GetData('isAnon');
     if (
       email !== null &&
       email !== '' &&
@@ -117,11 +118,14 @@ export default class App extends Component {
         .catch(result => {
           this.clearLoginInfo();
         });
+    } else if (isAnon !== null && isAnon === true) {
+      this.setState({isAnon: true, isLoggedIn: true});
     }
   }
 
   logInUserAnon() {
     this.setState({isLoggedIn: true, isAnon: true});
+    StoreData('isAnon', true);
   }
 
   logInUserWithPassword(email, password, callback) {
