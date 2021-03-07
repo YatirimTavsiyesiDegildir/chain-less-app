@@ -127,7 +127,7 @@ export default class App extends Component {
       });
   }
 
-  async register(email, password) {
+  async register(email, password, callback) {
     await auth()
       .createUserWithEmailAndPassword(email, password)
       .then(res => {
@@ -170,6 +170,8 @@ export default class App extends Component {
                   this.setState({following: newFollowing});
                   StoreData('following', newFollowing);
                 },
+                register: (email, password, callback) =>
+                  this.register(email, password, callback),
               }}
               isAnon={this.state.isAnon}
               getFollowing={() => this.state.following}
