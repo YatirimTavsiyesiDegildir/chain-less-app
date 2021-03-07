@@ -10,6 +10,7 @@ import {call} from 'react-native-reanimated';
 import theme from './src/themes/theme';
 import {client} from './back-end/OurApi';
 import {gql} from '@apollo/client';
+import auth from '@react-native-firebase/auth';
 
 YellowBox.ignoreWarnings(['Warning: ReactNative.createElement']);
 
@@ -182,6 +183,25 @@ export default class App extends Component {
     this.clearLoginInfo();
     this.setState({isLoggedIn: false});
   };
+
+  async register(email, password) {
+    await auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then(() => {
+        console.log('User account created & signed in!');
+      })
+      .catch(error => {
+        if (error.code === 'auth/email-already-in-use') {
+          console.log('That email address is already in use!');
+        }
+
+        if (error.code === 'auth/invalid-email') {
+          console.log('That email address is invalid!');
+        }
+
+        console.error(error);
+      });
+  }
 
   render() {
     return (
