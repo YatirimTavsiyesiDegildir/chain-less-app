@@ -46,7 +46,7 @@ export default class LoginScreen extends Component {
           <View style={LoginStyles.logoContainer}>
             <View style={LoginStyles.logoOutline}>
               <Image
-                source={require('../../src/img/lyda_icon_transparent.png')}
+                source={require('../../src/img/logo.png')}
                 style={LoginStyles.logo}
                 resizeMode={'contain'}
               />
