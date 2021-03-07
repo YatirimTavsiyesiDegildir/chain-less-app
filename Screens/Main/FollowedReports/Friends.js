@@ -27,6 +27,7 @@ export default class FriendsScreen extends Component {
 
   renderItem = ({item, index}) => {
     if (item.type === 'report') {
+      item.isFollowed = true;
       return ReportCard(item);
     }
   };
