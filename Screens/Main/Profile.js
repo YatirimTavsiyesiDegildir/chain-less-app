@@ -39,9 +39,7 @@ export default class ProfileScreen extends Component {
         <TopNavigation
           title="Profile"
           alignment="center"
-          accessoryRight={
-            this.props.route.params.isAnon ? null : this.BackAction
-          }
+          accessoryRight={this.BackAction}
         />
         <Divider />
         <Layout style={ProfileStyles.container}>
