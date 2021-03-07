@@ -15,13 +15,13 @@ const Footer = props => (
 
 const FollowedFooter = props => (
   <View {...props} style={[props.style, CardStyles.footerContainer]}>
-  <Button style={CardStyles.footerControl} size="small">
-    UNFOLLOW
-  </Button>
-  <Button style={CardStyles.footerControl} size="small">
-    VERIFY
-  </Button>
-</View>
+    <Button style={CardStyles.footerControl} size="small">
+      UNFOLLOW
+    </Button>
+    <Button style={CardStyles.footerControl} size="small">
+      VERIFY
+    </Button>
+  </View>
 );
 
 const FriendCard = props => (
@@ -59,12 +59,12 @@ const ReportCard = props => (
     style={CardStyles.card}
     header={() => (
       <View style={CardStyles.header}>
-        <Text category="h6">{props.data.title}</Text>
-        <Text category="s1">from {props.data.place}</Text>
+        <Text category="h6">{props.title}</Text>
+        <Text category="s1">from {props.place}</Text>
       </View>
     )}
-    footer={props.isFollowed?FollowedFooter:Footer}>
-    <Text>{props.data.description}</Text>
+    footer={props.isFollowed ? FollowedFooter : Footer}>
+    <Text>{props.description}</Text>
   </Card>
 );
 

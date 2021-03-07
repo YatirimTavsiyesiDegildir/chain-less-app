@@ -1,8 +1,5 @@
 import React, {Component} from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-} from 'react-native';
+import {SafeAreaView, StyleSheet} from 'react-native';
 import {
   Divider,
   Layout,
@@ -12,29 +9,44 @@ import {
   TopNavigationAction,
 } from '@ui-kitten/components';
 import {ReportCard} from '../../../src/component/Card';
+import {FetchGet} from '../../../src/utils/Fetch';
 
 export default class CouponsScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
       refreshing: false,
-      reportsData: [
-        {
-          type: 'report',
-          data: {
-            id: 0,
-            title: 'First data!',
-            description: 'This is a test data',
-            place: 'Milky way galaxy.',
-            date: 0,
-          },
-        },
-        {type: 'verify', data: {report_id: 0, date: 0}},
-      ],
+      reportsData: [],
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.getBlockchain();
+  }
+
+  getBlockchain() {
+    FetchGet(
+      '/blocks',
+      {},
+      response => {
+        let reports = [];
+        response.forEach(element => {
+          try {
+            element = JSON.parse(element.data);
+            if (element.type === 'report') {
+              element.verify = 0;
+              reports.push(element);
+            }
+          } catch (err) {
+            console.error(err);
+          }
+        });
+        console.log(reports);
+        this.setState({reportsData: reports});
+      },
+      err => console.log(err),
+    );
+  }
 
   PlusIcon = props => <Icon {...props} name="plus-outline" />;
 
@@ -51,9 +63,7 @@ export default class CouponsScreen extends Component {
   );
 
   renderItem = ({item, index}) => {
-    if (item.type === 'report') {
-      return ReportCard(item);
-    }
+    return ReportCard(item);
   };
 
   render() {

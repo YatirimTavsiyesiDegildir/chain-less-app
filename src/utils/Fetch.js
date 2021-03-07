@@ -1,4 +1,5 @@
 const FetchPost = (route, details, response, error) => {
+  console.warn(details);
   fetch(global.apiUrl + route, {
     method: 'POST',
     headers: {
@@ -15,7 +16,6 @@ const FetchPost = (route, details, response, error) => {
 };
 
 const FetchGet = (route, details, response, error) => {
-  console.log(global.apiUrl + route);
   fetch(global.apiUrl + route, {
     method: 'GET',
   })
