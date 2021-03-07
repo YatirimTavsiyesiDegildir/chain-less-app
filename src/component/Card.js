@@ -27,7 +27,8 @@ const ReportCard = props => (
                 style={CardStyles.footerControl}
                 size="small"
                 onPress={() => props.verify()}
-                disabled={props.isVerified}>
+                disabled={props.isVerified}
+                status="success">
                 {props.isVerified ? 'VERIFIED' : 'VERIFY'}
               </Button>
             </View>
