@@ -29,13 +29,13 @@ export default class CouponsScreen extends Component {
       '/blocks',
       {},
       response => {
-        let reports = [];
+        let reports = {};
         response.forEach(element => {
           try {
-            element = JSON.parse(element.data);
+            element = element.data;
             if (element.type === 'report') {
               element.verification = 0;
-              reports.push(element);
+              reports[element.id] = element;
             }
           } catch (err) {
             console.error(err);
@@ -44,29 +44,22 @@ export default class CouponsScreen extends Component {
         // Add verifications
         response.forEach(element => {
           try {
-            console.log('hey2');
-            console.warn(typeof element);
-            element = JSON.parse(element.data);
-            console.log('hey3');
-            console.warn(element);
+            element = element.data;
             if (element.type === 'verification') {
-              console.log(element);
-              reports.forEach(element2 => {
-                try {
-                  if (element2.id === element.report_id) {
-                    element2.verification += 1;
-                  }
-                } catch (err) {
-                  console.error(err);
-                }
-              });
+              reports[element.report_id].verification += 1;
             }
           } catch (err) {
             console.error(err);
           }
         });
-        console.log(reports);
-        this.setState({reportsData: reports});
+
+        let resultList = [];
+
+        for (let key in reports) {
+          resultList.push(reports[key]);
+        }
+        console.log(resultList);
+        this.setState({reportsData: resultList});
       },
       err => console.log(err),
     );
