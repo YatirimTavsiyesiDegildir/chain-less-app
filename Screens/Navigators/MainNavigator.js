@@ -29,8 +29,10 @@ const CouponsStack = props => (
       name="CouponsScreen"
       component={CouponsScreen}
       initialParams={{
-        setFollowing: following => props.route.params.setFollowing(following),
-        following: props.route.params.following,
+        setFollowing: following => {
+          props.route.params.setFollowing(following);
+        },
+        getFollowing: () => props.route.params.getFollowing(),
       }}
     />
     <Stack.Screen name="ShowQRScreen" component={ShowQRScreen} />
@@ -46,7 +48,7 @@ const FollowedReportsStack = props => (
       component={FriendsScreen}
       initialParams={{
         setFollowing: following => props.route.params.setFollowing(following),
-        following: props.route.params.following,
+        getFollowing: () => props.route.params.getFollowing(),
       }}
     />
   </Stack.Navigator>
@@ -69,15 +71,17 @@ const TabNavigator = props => (
       component={FollowedReportsStack}
       initialParams={{
         setFollowing: following => props.setFollowing(following),
-        following: props.following,
+        getFollowing: () => props.getFollowing(),
       }}
     />
     <Screen
       name="CouponsScreen"
       component={CouponsStack}
       initialParams={{
-        setFollowing: following => props.setFollowing(following),
-        following: props.following,
+        setFollowing: following => {
+          props.setFollowing(following);
+        },
+        getFollowing: () => props.getFollowing(),
       }}
     />
     <Screen
@@ -98,8 +102,10 @@ const MainNavigator = props => (
         logout: () => props.mainFunctions.logout(),
       }}
       isAnon={props.isAnon}
-      following={props.following}
-      setFollowing={newFollowing => props.setFollowing(newFollowing)}
+      getFollowing={() => props.getFollowing()}
+      setFollowing={following => {
+        props.mainFunctions.setFollowing(following);
+      }}
     />
   </NavigationContainer>
 );

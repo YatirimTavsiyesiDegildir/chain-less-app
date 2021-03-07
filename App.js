@@ -175,12 +175,14 @@ export default class App extends Component {
             <MainNavigator
               mainFunctions={{
                 logout: () => this.logout(),
+                setFollowing: newFollowing => {
+                  this.setState({following: newFollowing}, () =>
+                    console.warn(this.state.following),
+                  );
+                },
               }}
               isAnon={this.state.isAnon}
-              following={this.state.following}
-              setFollowing={newFollowing =>
-                this.setState({following: newFollowing})
-              }
+              getFollowing={() => this.state.following}
             />
           ) : (
             <LoginNavigator
