@@ -8,9 +8,20 @@ const Footer = props => (
       FOLLOW
     </Button>
     <Button style={CardStyles.footerControl} size="small">
-      ACCEPT
+      VERIFY
     </Button>
   </View>
+);
+
+const FollowedFooter = props => (
+  <View {...props} style={[props.style, CardStyles.footerContainer]}>
+  <Button style={CardStyles.footerControl} size="small">
+    UNFOLLOW
+  </Button>
+  <Button style={CardStyles.footerControl} size="small">
+    VERIFY
+  </Button>
+</View>
 );
 
 const FriendCard = props => (
@@ -52,7 +63,7 @@ const ReportCard = props => (
         <Text category="s1">from {props.data.place}</Text>
       </View>
     )}
-    footer={Footer}>
+    footer={props.isFollowed?FollowedFooter:Footer}>
     <Text>{props.data.description}</Text>
   </Card>
 );

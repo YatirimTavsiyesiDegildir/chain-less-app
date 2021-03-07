@@ -54,17 +54,17 @@ export default class LoginScreen extends Component {
           </View>
           <View style={LoginStyles.inputContainer}>
             <Text category="h2" style={{marginBottom: 30, marginTop: 30}}>
-              Hoş Geldin!
+              Welcome!
             </Text>
             <Input
-              placeholder="Email"
+              placeholder="E-mail"
               value={this.state.email}
               onChangeText={nextValue => this.setState({email: nextValue})}
               accessoryLeft={EmailIcon}
               autoCapitalize="none"
             />
             <Input
-              placeholder="Sifre"
+              placeholder="Password"
               value={this.state.password}
               onChangeText={nextValue => this.setState({password: nextValue})}
               secureTextEntry={true}
@@ -89,7 +89,7 @@ export default class LoginScreen extends Component {
                   this.state.loading ? this.LoadingIndicator : null
                 }
                 appearance={this.state.loading ? 'ghost' : 'filled'}>
-                {this.state.loading ? '' : 'Giris Yap'}
+                {this.state.loading ? '' : 'Login'}
               </Button>
               <TouchableOpacity
                 onPress={() =>
@@ -98,7 +98,7 @@ export default class LoginScreen extends Component {
                 <Text>Continue Anonymously</Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={this.navigateRegister}>
-                <Text>Hesabin yok mu? Kayit ol!</Text>
+                <Text>Register!</Text>
               </TouchableOpacity>
             </View>
           </View>

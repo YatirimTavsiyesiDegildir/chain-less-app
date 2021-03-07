@@ -71,12 +71,15 @@ export default class ProfileScreen extends Component {
         <Layout style={ProfileStyles.container}>
           {this.props.route.params.isAnon ? (
             <>
+              <Card>
               <Text>
                 You are currently anonymous. You can create an account to save
                 your data among devices. Even when you create an account,both
-                your reports and verifications are anonymous.
+                your reports and verifications will be anonymous.
               </Text>
-              <Button>Create an Account</Button>
+              </Card>
+              
+              <Button style={ProfileStyles.button}>Create an Account</Button>
             </>
           ) : (
             <>
@@ -99,30 +102,6 @@ export default class ProfileScreen extends Component {
                   {'@' + global.username}
                 </Text>
               </View>
-              <View style={ProfileStyles.logoutContainer}>
-                <Text category={'h3'}>Başarılarım</Text>
-                <View
-                  style={{
-                    height: '100%',
-                    width: '100%',
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    marginTop: 20,
-                  }}>
-                  {this.ModalWithBackdropShowcase(
-                    'Tebrikler! Tüm aboneliklerin için hatırlatıcı kurdun.',
-                    'https://project-lyda.s3.eu-central-1.amazonaws.com/badges/clap.jpeg',
-                  )}
-                  {this.ModalWithBackdropShowcase(
-                    'Tebrikler! Bir hafta boyunca arkadaşlarından daha tasarruflu davrandın.',
-                    'https://project-lyda.s3.eu-central-1.amazonaws.com/badges/flag.jpg',
-                  )}
-                  {this.ModalWithBackdropShowcase(
-                    'Tebrikler! Lyda hesabını bir banka hesabına bağladın.',
-                    'https://project-lyda.s3.eu-central-1.amazonaws.com/badges/natural.jpeg',
-                  )}
-                </View>
-              </View>
             </>
           )}
         </Layout>
@@ -144,7 +123,18 @@ const ProfileStyles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
     alignItems: 'center',
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingBottom:20,
+  },
+  button: {
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingBottom:20,
+    paddingTop:20,
   },
   avatarContainer: {
     flex: 2,
