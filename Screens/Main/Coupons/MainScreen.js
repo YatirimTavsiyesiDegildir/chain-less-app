@@ -34,8 +34,32 @@ export default class CouponsScreen extends Component {
           try {
             element = JSON.parse(element.data);
             if (element.type === 'report') {
-              element.verify = 0;
+              element.verification = 0;
               reports.push(element);
+            }
+          } catch (err) {
+            console.error(err);
+          }
+        });
+        // Add verifications
+        response.forEach(element => {
+          try {
+            console.log('hey2');
+            console.warn(typeof element);
+            element = JSON.parse(element.data);
+            console.log('hey3');
+            console.warn(element);
+            if (element.type === 'verification') {
+              console.log(element);
+              reports.forEach(element2 => {
+                try {
+                  if (element2.id === element.report_id) {
+                    element2.verification += 1;
+                  }
+                } catch (err) {
+                  console.error(err);
+                }
+              });
             }
           } catch (err) {
             console.error(err);
