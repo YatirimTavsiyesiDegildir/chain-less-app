@@ -24,36 +24,6 @@ const FollowedFooter = props => (
   </View>
 );
 
-const FriendCard = props => (
-  <Card style={CardStyles.card}>
-    <View
-      style={[
-        CardStyles.cardInnerContainer,
-        CardStyles.cardInnerContainerFriend,
-      ]}>
-      <View style={CardStyles.friendAvatarContainer}>
-        <Image
-          style={CardStyles.friendAvatar}
-          source={{
-            uri:
-              'https://project-lyda.s3.eu-central-1.amazonaws.com/pp/' +
-              props.cardProps.followed_to_user.id +
-              '.png',
-          }}
-        />
-      </View>
-      <Text category={'h6'} style={CardStyles.nameText}>
-        {props.cardProps.followed_to_user.name}
-      </Text>
-      <Icon
-        style={{width: 32, height: 32, marginRight: 20}}
-        fill="#008F72"
-        name="checkmark-circle-outline"
-      />
-    </View>
-  </Card>
-);
-
 const ReportCard = props => (
   <Card
     style={CardStyles.card}
@@ -61,6 +31,7 @@ const ReportCard = props => (
       <View style={CardStyles.header}>
         <Text category="h6">{props.title}</Text>
         <Text category="s1">from {props.place}</Text>
+        <Text category="label">Verified by {props.verification} people</Text>
       </View>
     )}
     footer={props.isFollowed ? FollowedFooter : Footer}>
@@ -133,4 +104,4 @@ const CardStyles = StyleSheet.create({
   },
 });
 
-export {FriendCard, ReportCard};
+export {ReportCard};
