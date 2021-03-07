@@ -49,18 +49,27 @@ export default class AddReport extends Component {
         <Layout
           style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
           <Input
+            style={styles.input}
+            size='large'
             label={() => <Text>Title of Incident</Text>}
             onChangeText={nextValue => this.setState({title: nextValue})}
           />
+          <Divider />
           <Input
+            style={styles.input}
+            size='large'
             label={() => <Text>Place</Text>}
             onChangeText={nextValue => this.setState({place: nextValue})}
           />
+          <Divider />
           <Input
+            style={styles.input}
             label={() => <Text>Description</Text>}
             multiline={true}
+            textStyle={{ minHeight: 64 }}
             onChangeText={nextValue => this.setState({description: nextValue})}
           />
+          <Divider />
           <Button
             onPress={() => {
               FetchPost(
@@ -88,3 +97,11 @@ export default class AddReport extends Component {
 }
 
 const AddReportStyles = StyleSheet.create({});
+
+const styles = StyleSheet.create({
+  input: {
+    marginVertical: 2,
+    paddingLeft: 20,
+    paddingRight:20,
+  },
+});
