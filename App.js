@@ -48,10 +48,11 @@ export default class App extends Component {
     StoreData('email', user.email);
     StoreData('uid', user.uid);
     StoreData('password', user.password);
+    StoreData('isAnon', false);
     global.email = user.email;
     global.uid = user.uid;
     global.password = user.password;
-    this.setState({isLoggedIn: true});
+    this.setState({isLoggedIn: true, isAnon: false});
   }
 
   async checkCredentials() {
