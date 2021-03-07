@@ -119,6 +119,14 @@ export default class App extends Component {
           this.clearLoginInfo();
         });
     } else if (isAnon !== null && isAnon === true) {
+      let verified = await GetData('verified');
+      let following = await GetData('following');
+      if (verified !== null) {
+        this.setState({verified: verified});
+      }
+      if (following !== null) {
+        this.setState({following: following});
+      }
       this.setState({isAnon: true, isLoggedIn: true});
     }
   }
@@ -185,15 +193,17 @@ export default class App extends Component {
               mainFunctions={{
                 logout: () => this.logout(),
                 setFollowing: newFollowing => {
-                  this.setState({following: newFollowing}, () =>
-                    console.log(this.state.following),
-                  );
+                  this.setState({following: newFollowing});
+                  StoreData('following', newFollowing);
                 },
               }}
               isAnon={this.state.isAnon}
               getFollowing={() => this.state.following}
               getVerified={() => this.state.verified}
-              setVerified={verified => this.setState({verified: verified})}
+              setVerified={verified => {
+                this.setState({verified: verified});
+                StoreData('verified', verified);
+              }}
             />
           ) : (
             <LoginNavigator
