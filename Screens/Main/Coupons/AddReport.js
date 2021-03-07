@@ -63,17 +63,13 @@ export default class AddReport extends Component {
           />
           <Button
             onPress={() => {
-              console.warn({
-                title: this.state.title,
-                description: this.state.description,
-                place: this.state.place,
-              });
               FetchPost(
                 '/addBlock',
                 {
                   title: this.state.title,
                   description: this.state.description,
                   place: this.state.place,
+                  type: 'report',
                 },
                 () => {
                   console.warn('Success');
