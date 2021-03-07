@@ -7,9 +7,9 @@ import {
   Icon,
 } from '@ui-kitten/components';
 import ProfileScreen from '../Main/Profile';
-import CouponsScreen from '../Main/Coupons/MainScreen';
-import AddReport from '../Main/Coupons/AddReport';
-import FriendsScreen from '../Main/FollowedReports/Friends';
+import CouponsScreen from '../Main/Reports/MainScreen';
+import AddReport from '../Main/Reports/AddReport';
+import FriendsScreen from '../Main/FollowedReports/FollowedReports';
 import RegisterScreen from '../PreLogin/Register';
 
 import {createStackNavigator} from '@react-navigation/stack';
