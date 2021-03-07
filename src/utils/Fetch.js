@@ -1,24 +1,16 @@
 const FetchPost = (route, details, response, error) => {
-  let formBody = [];
-  for (let property in details) {
-    let encodedKey = encodeURIComponent(property);
-    let encodedValue = encodeURIComponent(details[property]);
-    formBody.push(encodedKey + '=' + encodedValue);
-  }
-  formBody = formBody.join('&');
-
-  fetch(global.ApiUrl + route, {
+  fetch(global.apiUrl + route, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
+      'Content-Type': 'application/json',
     },
-    body: formBody,
+    body: details,
   })
     .then(response => response.json())
     .then(responseData => {
       response(responseData);
     })
-    .catch(error)
+    .catch(err => error(err))
     .done();
 };
 
@@ -30,7 +22,7 @@ const FetchGet = (route, details, response, error) => {
     urlParams += encodedKey + '=' + encodedValue + '&';
   }
   urlParams = urlParams.substring(0, urlParams.length - 1);
-  fetch(global.ApiUrl + route + urlParams, {
+  fetch(global.apiUrl + route + urlParams, {
     method: 'GET',
   })
     .then(response => response.json())

@@ -11,11 +11,16 @@ import {
   Button,
 } from '@ui-kitten/components';
 
+import {FetchPost} from '../../../src/utils/Fetch';
+
 export default class AddReport extends Component {
   constructor(props) {
     super(props);
     this.state = {
       refreshing: true,
+      title: '',
+      description: '',
+      place: '',
     };
   }
 
@@ -43,10 +48,43 @@ export default class AddReport extends Component {
         <Divider />
         <Layout
           style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <Input label={() => <Text>Title of Incident</Text>} />
-          <Input label={() => <Text>Place</Text>} />
-          <Input label={() => <Text>Description</Text>} multiline={true} />
-          <Button>Submit</Button>
+          <Input
+            label={() => <Text>Title of Incident</Text>}
+            onChangeText={nextValue => this.setState({title: nextValue})}
+          />
+          <Input
+            label={() => <Text>Place</Text>}
+            onChangeText={nextValue => this.setState({place: nextValue})}
+          />
+          <Input
+            label={() => <Text>Description</Text>}
+            multiline={true}
+            onChangeText={nextValue => this.setState({description: nextValue})}
+          />
+          <Button
+            onPress={() => {
+              console.warn({
+                title: this.state.title,
+                description: this.state.description,
+                place: this.state.place,
+              });
+              FetchPost(
+                '/addBlock',
+                {
+                  title: this.state.title,
+                  description: this.state.description,
+                  place: this.state.place,
+                },
+                () => {
+                  console.warn('Success');
+                },
+                err => {
+                  console.warn(JSON.stringify(err));
+                },
+              );
+            }}>
+            Submit
+          </Button>
         </Layout>
       </SafeAreaView>
     );
