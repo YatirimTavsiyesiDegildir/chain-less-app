@@ -5,7 +5,7 @@ const FetchPost = (route, details, response, error) => {
     headers: {
       'Content-Type': 'application/json',
     },
-    body: details,
+    body: JSON.stringify(details),
   })
     .then(response => response.json())
     .then(responseData => {
