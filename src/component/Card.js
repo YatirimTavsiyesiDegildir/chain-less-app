@@ -2,14 +2,6 @@ import React from 'react';
 import {StyleSheet, View, Image} from 'react-native';
 import {Button, Card, Text, Icon, Spinner} from '@ui-kitten/components';
 
-const FollowedFooter = props => (
-  <View {...props} style={[props.style, CardStyles.footerContainer]}>
-    <Button style={CardStyles.footerControl} size="small">
-      UNFOLLOW
-    </Button>
-  </View>
-);
-
 const ReportCard = props => (
   <Card
     style={CardStyles.card}
@@ -22,15 +14,27 @@ const ReportCard = props => (
     )}
     footer={
       props.isFollowed
-        ? FollowedFooter
-        : () => (
-            <View style={[props.style, CardStyles.footerContainer]}>
+        ? () => (
+            <View {...props} style={[props.style, CardStyles.footerContainer]}>
+              <Button style={CardStyles.footerControl} size="small" onPress={() => props.unfollow()}>
+                UNFOLLOW
+              </Button>
               <Button
                 style={CardStyles.footerControl}
                 size="small"
-                onPress={() => props.follow()}
-                disabled={props.isFollowed}>
-                {props.isFollowed ? 'FOLLOWED' : 'FOLLOW'}
+                onPress={() => props.verify()}
+                disabled={props.isVerified}>
+                {props.isVerified ? 'VERIFIED' : 'VERIFY'}
+              </Button>
+            </View>
+          )
+        : () => (
+            <View {...props} style={[props.style, CardStyles.footerContainer]}>
+              <Button
+                style={CardStyles.footerControl}
+                size="small"
+                onPress={() => props.follow()}>
+                {'FOLLOW'}
               </Button>
               <Button
                 style={CardStyles.footerControl}
