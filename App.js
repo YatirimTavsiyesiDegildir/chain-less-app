@@ -231,6 +231,7 @@ export default class App extends Component {
                 logInUser: (email, password, callback) =>
                   this.logInUserWithPassword(email, password, callback),
                 logInUserAnon: () => this.logInUserAnon(),
+                register: (email, password, callback) => this.register(email, password, callback),
               }}
             />
           )}

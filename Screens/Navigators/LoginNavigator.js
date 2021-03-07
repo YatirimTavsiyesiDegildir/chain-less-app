@@ -18,10 +18,21 @@ class HomeNavigator extends Component {
               logInUser: (email, password, callback) =>
                 this.props.mainFunctions.logInUser(email, password, callback),
               logInUserAnon: () => this.props.mainFunctions.logInUserAnon(),
+              register: (email, password) =>
+                this.props.mainFunctions.register(email, password),
             },
           }}
         />
-        <Screen name="Register" component={RegisterScreen} />
+        <Screen
+          name="Register"
+          component={RegisterScreen}
+          initialParams={{
+            mainFunctions: {
+              register: (email, password, callback) =>
+                this.props.mainFunctions.register(email, password, callback),
+            },
+          }}
+        />
       </Navigator>
     );
   }
@@ -36,6 +47,8 @@ export default class LoginNavigator extends Component {
             logInUser: (email, password, callback) =>
               this.props.mainFunctions.logInUser(email, password, callback),
             logInUserAnon: () => this.props.mainFunctions.logInUserAnon(),
+            register: (email, password, callback) =>
+              this.props.mainFunctions.register(email, password, callback),
           }}
         />
       </NavigationContainer>
