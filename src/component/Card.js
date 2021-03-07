@@ -16,7 +16,7 @@ const ReportCard = props => (
       props.isFollowed
         ? () => (
             <View {...props} style={[props.style, CardStyles.footerContainer]}>
-              <Button style={CardStyles.footerControl} size="small" onPress={() => props.unfollow()}>
+              <Button appearance='outline' style={CardStyles.footerControl} size="small" onPress={() => props.unfollow()}>
                 UNFOLLOW
               </Button>
               <Button
