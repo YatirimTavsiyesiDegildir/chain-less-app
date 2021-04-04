@@ -18,4 +18,4 @@ Developed during [Google Solutions Challenge](https://developers.google.com/comm
 - [Firebase & Firebase Auth](https://firebase.google.com/)
 - [React Native](https://reactnative.dev/)
 
-Pull requests are welcomed:)
+Pull requests are welcomed :)
