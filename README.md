@@ -17,5 +17,7 @@ Developed during [Google Solutions Challenge](https://developers.google.com/comm
 ## Technologies used:
 - [Firebase & Firebase Auth](https://firebase.google.com/)
 - [React Native](https://reactnative.dev/)
-
-Pull requests are welcomed :)
+## Authors
+- [Dogu Deniz UGUR](https://github.com/DoguD)
+- [Cinar Kiziltepe](https://github.com/Oakknight)
+- [Doruk Karaman](https://github.com/DorukKaraman)
